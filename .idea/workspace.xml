@@ -4,24 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="Git test">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/idex.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/AgentEntity/AgentEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/server/Server.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/config/WebsocketConfiguration.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/mainLogic/Main.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/org/treez/server/websocket/WebSocketHandler.class" afterDir="false" />
+    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="GameLoop alpha 23.11.24">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Repository/AgentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/idex.html" beforeDir="false" afterPath="$PROJECT_DIR$/idex.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/AgentEntity/AgentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Entity/AgentEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Service/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mainLogic/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,11 +100,11 @@
       </method>
     </configuration>
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.mainLogic.server.Server" />
+      <option name="MAIN_CLASS_NAME" value="org.mainLogic.Service.Server" />
       <module name="murder-ioGame-backend" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.mainLogic.server.*" />
+          <option name="PATTERN" value="org.mainLogic.Service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -200,7 +191,8 @@
       <workItem from="1731957756629" duration="5099000" />
       <workItem from="1732032483624" duration="2348000" />
       <workItem from="1732381318584" duration="6191000" />
-      <workItem from="1732393232359" duration="2039000" />
+      <workItem from="1732393232359" duration="2364000" />
+      <workItem from="1732459122598" duration="9104000" />
     </task>
     <task id="LOCAL-00001" summary="Project initialization">
       <option name="closed" value="true" />
@@ -226,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731156736897</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="GameLoop alpha 23.11.24">
+      <option name="closed" value="true" />
+      <created>1732395580791</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732395580791</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,7 +246,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Project initialization" />
     <MESSAGE value="Git test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Git test" />
+    <MESSAGE value="GameLoop alpha 23.11.24" />
+    <option name="LAST_COMMIT_MESSAGE" value="GameLoop alpha 23.11.24" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

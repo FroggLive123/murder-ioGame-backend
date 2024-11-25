@@ -1,4 +1,4 @@
-package org.mainLogic.server;
+package org.mainLogic.Service;
 
 import jakarta.xml.bind.DatatypeConverter;
 
@@ -22,6 +22,8 @@ public class Server {
 
     private static MessageDigest SHA1;
     private static final List<Socket> clients = new ArrayList<>();
+
+    // change to hashMap, key for hashMap is user hash
 
     public static void server() {
 
@@ -102,6 +104,8 @@ public class Server {
                         e.printStackTrace();
                     }
 
+                    //send hash for clients
+
                     System.out.println("Add socket to pool");
                     clients.add(socket);
                 } catch (Exception e) {
@@ -110,6 +114,7 @@ public class Server {
             }
         }).start();
     }
+
 
     //Source for encoding and decoding:
     //https://stackoverflow.com/questions/8125507/how-can-i-send-and-receive-websocket-messages-on-the-server-side
