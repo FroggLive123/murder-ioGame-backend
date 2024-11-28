@@ -1,4 +1,4 @@
-package org.mainLogic.Service;
+package org.mainLogic.service;
 
 import jakarta.xml.bind.DatatypeConverter;
 
@@ -104,7 +104,8 @@ public class Server {
                         e.printStackTrace();
                     }
 
-                    //send hash for clients
+                    //send hash for clients from current time
+                    //then create array with socket and sha1 hash
 
                     System.out.println("Add socket to pool");
                     clients.add(socket);

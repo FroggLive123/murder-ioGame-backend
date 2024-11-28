@@ -1,15 +1,15 @@
 package org.mainLogic;
 
-import org.mainLogic.Service.Server;
+import org.mainLogic.service.Server;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         //create application class for init all program
         //Application has to create EntityArray
         //Application has to start new Tread to start GameLoop
 
-        Server server = new Server();
-        server.start();
+        Application application = new Application();
+        application.run(40);
     }
 }
