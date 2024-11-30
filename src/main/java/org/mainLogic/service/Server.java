@@ -1,6 +1,7 @@
 package org.mainLogic.service;
 
 import jakarta.xml.bind.DatatypeConverter;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +12,7 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,11 +24,12 @@ public class Server {
 
     private static MessageDigest SHA1;
     private static final List<Socket> clients = new ArrayList<>();
+    private static AgentService agentService;
 
     // change to hashMap, key for hashMap is user hash
 
-    public static void server() {
-
+    public void server(AgentService agentService) throws IOException {
+        this.agentService = agentService;
     }
 
     public void start() {
@@ -107,7 +110,20 @@ public class Server {
                     //send hash for clients from current time
                     //then create array with socket and sha1 hash
 
-                    System.out.println("Add socket to pool");
+                    //creates sha1 hash from current time
+                    long timeOfInit =  Instant.now().toEpochMilli();
+                    String userSha1 = DigestUtils.sha1Hex(String.valueOf(timeOfInit));
+
+                    //send hash  to user
+                    outputStream.write(encode(userSha1));
+                    outputStream.flush();
+
+                    //create system of overflow
+                    outputStream.write(encode(agentService.randomAgent()));
+
+
+                    agentService.addUser(userSha1, socket);
+
                     clients.add(socket);
                 } catch (Exception e) {
                     e.printStackTrace();

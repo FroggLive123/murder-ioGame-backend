@@ -2,6 +2,7 @@ package org.mainLogic;
 
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.repository.AgentRepository;
+import org.mainLogic.service.AgentService;
 import org.mainLogic.service.Server;
 
 
@@ -35,6 +36,8 @@ public class Application {
         }
 
         agentRepository.createUUIDRepository(agentList);
+
+        AgentService agentService = new AgentService(agentRepository, amountOfPlayers);
 
 //        how it have to be
 //        List = new ArrayList<>()
