@@ -8,7 +8,7 @@ import java.util.*;
 
 public class AgentRepository {
     Map<String, AgentEntity> agentHashMap = new HashMap<String, AgentEntity>();
-    Map<String, Socket> users = new HashMap<>();
+    public Map<String, Socket> users = new HashMap<>();
     //Have to have two hasMaps, first will hase UUID + agentEntity, second will hase Hash + agentEntity
 
     public AgentRepository() {

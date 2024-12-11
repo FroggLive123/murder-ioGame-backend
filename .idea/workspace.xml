@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="GameLoop alpha 23.11.24">
+    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="GameLoop alpha 30.11.24">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/entity/AgentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/entity/AgentEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/repository/AgentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/repository/AgentRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/AgentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/AgentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mainLogic/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +200,11 @@
       <workItem from="1732637770907" duration="7053000" />
       <workItem from="1732725698660" duration="5901000" />
       <workItem from="1732825468597" duration="601000" />
-      <workItem from="1732985059808" duration="6189000" />
+      <workItem from="1732985059808" duration="6936000" />
+      <workItem from="1733764332686" duration="900000" />
+      <workItem from="1733852449012" duration="3576000" />
+      <workItem from="1733936755328" duration="474000" />
+      <workItem from="1733937241981" duration="750000" />
     </task>
     <task id="LOCAL-00001" summary="Project initialization">
       <option name="closed" value="true" />
@@ -234,7 +238,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732395580791</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="GameLoop alpha 30.11.24">
+      <option name="closed" value="true" />
+      <created>1732991401253</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732991401253</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,7 +267,8 @@
     <MESSAGE value="Project initialization" />
     <MESSAGE value="Git test" />
     <MESSAGE value="GameLoop alpha 23.11.24" />
-    <option name="LAST_COMMIT_MESSAGE" value="GameLoop alpha 23.11.24" />
+    <MESSAGE value="GameLoop alpha 30.11.24" />
+    <option name="LAST_COMMIT_MESSAGE" value="GameLoop alpha 30.11.24" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

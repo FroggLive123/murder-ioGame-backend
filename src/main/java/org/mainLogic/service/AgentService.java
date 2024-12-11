@@ -78,16 +78,22 @@ public class AgentService {
         }
     }
 
-    public void addUser(String userSha1, Socket socket) throws InterruptedException {
-        agentRepository.addUser(userSha1, socket);
+    public void addUser(String userSha1, Socket socket) throws Exception {
+
+        //overflow system
+        if(amountOfPlayers > agentRepository.users.size()){
+            agentRepository.addUser(userSha1, socket);
+        }else{
+            throw new Exception("overflow");
+        }
     }
 
-    public String randomAgent() {
+    public AgentEntity randomAgent() {
 //        boolean research = true;
         for(int i = 0; i < amountOfPlayers; i++){
             AgentEntity verifiableAgent = agents.get(i);
             if(verifiableAgent.isBot == true) {
-                return String.valueOf(verifiableAgent.uuid);
+                return verifiableAgent;
             }
         }
         return null;

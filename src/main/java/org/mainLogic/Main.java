@@ -1,9 +1,5 @@
 package org.mainLogic;
 
-import org.mainLogic.service.Server;
-
-import java.time.Instant;
-
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
@@ -13,7 +9,5 @@ public class Main {
 
 //        Application application = new Application();
 //        application.run(40);
-
-        System.out.println((Instant.now()).toEpochMilli());
     }
 }

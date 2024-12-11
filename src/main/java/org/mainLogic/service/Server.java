@@ -2,6 +2,7 @@ package org.mainLogic.service;
 
 import jakarta.xml.bind.DatatypeConverter;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.mainLogic.entity.AgentEntity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -113,15 +114,13 @@ public class Server {
                     //creates sha1 hash from current time
                     long timeOfInit =  Instant.now().toEpochMilli();
                     String userSha1 = DigestUtils.sha1Hex(String.valueOf(timeOfInit));
+                    AgentEntity userAgent = agentService.randomAgent();
 
                     //send hash  to user
-                    outputStream.write(encode(userSha1));
+                    outputStream.write(encode("type: init, hash: " + userSha1 + ", UUID: " + userAgent.uuid));
                     outputStream.flush();
 
-                    //create system of overflow
-                    outputStream.write(encode(agentService.randomAgent()));
-
-
+                    //adding user to hashMap with hash + socket
                     agentService.addUser(userSha1, socket);
 
                     clients.add(socket);

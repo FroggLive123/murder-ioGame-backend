@@ -12,11 +12,23 @@ import java.util.Map;
 import java.util.UUID;
 
 public class Application {
-    public Application() {
 
+    private boolean isRunning = false;
+
+    public Application() {
     }
 
     public void run(int amountOfPlayers) throws InterruptedException {
+
+        if(isRunning = true){
+            try {
+                throw new Exception("Aplication is running!");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        isRunning = true;
 
         ArrayList<AgentEntity> agentList = new ArrayList<>();
         ArrayList<Server> agentUUIDRepository = new ArrayList<>();
@@ -38,9 +50,6 @@ public class Application {
         agentRepository.createUUIDRepository(agentList);
 
         AgentService agentService = new AgentService(agentRepository, amountOfPlayers);
-
-//        how it have to be
-//        List = new ArrayList<>()
 
         //ask about PROBLEM
         Map<String, AgentEntity> agentHashMap = new HashMap<String,AgentEntity> ();
