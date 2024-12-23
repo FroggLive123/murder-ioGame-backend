@@ -1,36 +1,35 @@
 package org.mainLogic.repository;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.mainLogic.entity.AgentEntity;
 
 import java.net.Socket;
 import java.util.*;
 
 public class AgentRepository {
-    Map<String, AgentEntity> agentHashMap = new HashMap<String, AgentEntity>();
-    public Map<String, Socket> users = new HashMap<>();
+    Map<UUID, AgentEntity> agentHashMap = new HashMap<UUID, AgentEntity>();
+    public Map<String, Socket> userHashMap = new HashMap<>();
     //Have to have two hasMaps, first will hase UUID + agentEntity, second will hase Hash + agentEntity
 
     public AgentRepository() {
 
     }
 
-    public Map<String, AgentEntity> createUUIDRepository(ArrayList<AgentEntity> agentList) throws InterruptedException {
-        for(int i = 0; i < agentList.size(); i++) {
-            String uuidHash = DigestUtils.sha1Hex(((agentList.get(i)).uuid).toString());
-            agentHashMap.put(uuidHash, agentList.get(i));
+    public void createUUIDRepository(ArrayList<AgentEntity> agentList) throws InterruptedException {
+        for (AgentEntity agentEntity : agentList) {
+            agentHashMap.put(agentEntity.uuid, agentEntity);
         }
-        return agentHashMap;
     }
 
     public void addUser(String userSha1, Socket socket ) throws InterruptedException {
-        users.put(userSha1, socket);
+        userHashMap.put(userSha1, socket);
     }
 
-
+    public void deleteUser(String userSha1) throws InterruptedException {
+        userHashMap.remove(userSha1);
+    }
 
     public List<AgentEntity> getAgentRepository() {
-        for (Map.Entry<String, AgentEntity> entry : agentHashMap.entrySet()) {
+        for (Map.Entry<UUID, AgentEntity> entry : agentHashMap.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
             List<AgentEntity> agents = new ArrayList<>((Collection) entry.getValue());
         }
@@ -39,7 +38,11 @@ public class AgentRepository {
     }
 
     public Socket getUser(String userSha1) throws InterruptedException {
-        return users.get(userSha1);
+        return userHashMap.get(userSha1);
+    }
+
+    public AgentEntity getAgent(UUID uuid) {
+        return agentHashMap.get(uuid);
     }
 
 }

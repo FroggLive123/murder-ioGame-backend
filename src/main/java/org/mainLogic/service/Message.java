@@ -1,5 +1,9 @@
 package org.mainLogic.service;
 
 public class Message {
-    //creating message for
+    //UseobjectMaper to create json
+    //create different messages
+    public Message() {
+
+    }
 }

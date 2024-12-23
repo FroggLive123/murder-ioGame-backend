@@ -3,9 +3,11 @@ package org.mainLogic;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.repository.AgentRepository;
 import org.mainLogic.service.AgentService;
+import org.mainLogic.service.NotifyAgentService;
 import org.mainLogic.service.Server;
 
 
+import java.io.NotActiveException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,9 +22,9 @@ public class Application {
 
     public void run(int amountOfPlayers) throws InterruptedException {
 
-        if(isRunning = true){
+        if(isRunning){
             try {
-                throw new Exception("Aplication is running!");
+                throw new Exception("Application is running!");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -30,10 +32,10 @@ public class Application {
 
         isRunning = true;
 
-        ArrayList<AgentEntity> agentList = new ArrayList<>();
-        ArrayList<Server> agentUUIDRepository = new ArrayList<>();
-        //Initialization of agent array with UUID
+        //init of agent agentRepository with UUID hashMap
         AgentRepository agentRepository = new AgentRepository();
+        ArrayList<AgentEntity> agentList = new ArrayList<>();
+
         for(int i = 0; i < amountOfPlayers; i++) {
             UUID uuid = UUID.randomUUID();
 
@@ -49,19 +51,15 @@ public class Application {
 
         agentRepository.createUUIDRepository(agentList);
 
+        //init agent services
         AgentService agentService = new AgentService(agentRepository, amountOfPlayers);
-
-        //ask about PROBLEM
-        Map<String, AgentEntity> agentHashMap = new HashMap<String,AgentEntity> ();
-
-//        agentHashMap = agentRepository.createUUIDRepository(agentList);
-
-
-        agentRepository.getAgentRepository();
+        NotifyAgentService notifyAgentService = new NotifyAgentService(agentService);
 
         //Start server
-//        Server server = new Server();
-//        server.start();
+        Server server = new Server();
+        server.start();
+
+        //start game loop
     }
 }
 

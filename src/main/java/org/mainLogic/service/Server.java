@@ -114,16 +114,22 @@ public class Server {
                     //creates sha1 hash from current time
                     long timeOfInit =  Instant.now().toEpochMilli();
                     String userSha1 = DigestUtils.sha1Hex(String.valueOf(timeOfInit));
+
+                    //assign agent to user
                     AgentEntity userAgent = agentService.randomAgent();
+                    if(userAgent != null) {
+                        //send hash  to user
+                        outputStream.write(encode("type: init, hash: " + userSha1 + ", UUID: " + userAgent.uuid));
+                        outputStream.flush();
 
-                    //send hash  to user
-                    outputStream.write(encode("type: init, hash: " + userSha1 + ", UUID: " + userAgent.uuid));
-                    outputStream.flush();
+                        //adding user to hashMap with hash + socket
+                        agentService.addUser(userSha1, socket);
 
-                    //adding user to hashMap with hash + socket
-                    agentService.addUser(userSha1, socket);
+                        clients.add(socket);
+                    }else{
+                        outputStream.write(encode("type: err 'ServerIsFull'"));
+                    }
 
-                    clients.add(socket);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

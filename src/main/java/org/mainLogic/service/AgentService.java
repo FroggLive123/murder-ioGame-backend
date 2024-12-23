@@ -5,9 +5,7 @@ import org.mainLogic.repository.AgentRepository;
 
 import java.net.Socket;
 import java.time.Instant;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public class AgentService {
@@ -19,17 +17,12 @@ public class AgentService {
     //one step for agent
     int step = 10;
 
+    //make it interface
     public AgentService(AgentRepository agentRepository, int amountOfPlayers) {
         this.agentRepository = agentRepository;
         agents = agentRepository.getAgentRepository();
         this.amountOfPlayers = amountOfPlayers;
     }
-//
-//    public UUID getUUID(){
-//
-////        agentHashMap.get()
-////        return uuid;
-//    }
 
     public void move(int x, int y, AgentEntity agent) {
         switch(x) {
@@ -60,8 +53,11 @@ public class AgentService {
         }
     }
 
-    public int[][] getPosition() {
-        int[][] position = new int[0][0];
+    public float[] getPosition(UUID uuid) {
+        AgentEntity agent = agentRepository.getAgent(uuid);
+        float[] position = new float[2];
+        position[0] = (float) agent.x;
+        position[1] = (float) agent.y;
         return position;
     }
 
@@ -81,7 +77,7 @@ public class AgentService {
     public void addUser(String userSha1, Socket socket) throws Exception {
 
         //overflow system
-        if(amountOfPlayers > agentRepository.users.size()){
+        if(amountOfPlayers > agentRepository.userHashMap.size()){
             agentRepository.addUser(userSha1, socket);
         }else{
             throw new Exception("overflow");
@@ -91,9 +87,9 @@ public class AgentService {
     public AgentEntity randomAgent() {
 //        boolean research = true;
         for(int i = 0; i < amountOfPlayers; i++){
-            AgentEntity verifiableAgent = agents.get(i);
-            if(verifiableAgent.isBot == true) {
-                return verifiableAgent;
+            AgentEntity agent = agents.get(i);
+            if(agent.isBot) {
+                return agent;
             }
         }
         return null;

@@ -1,11 +1,19 @@
 package org.mainLogic.service;
 
+import java.util.UUID;
+
 public class NotifyAgentService {
-    // AgentService has to be privet class of NotifyAgentService
+
+//  Have to be proxy of AgentService
+
     private AgentService agentService;
 
     public NotifyAgentService(AgentService agentService) {
         this.agentService = agentService;
     }
+
+    public void  kill(UUID uuid, int direction) {
+    }
+
 
 }
