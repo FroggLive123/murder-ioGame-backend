@@ -119,7 +119,7 @@ public class Server {
                     AgentEntity userAgent = agentService.randomAgent();
                     if(userAgent != null) {
                         //send hash  to user
-                        outputStream.write(encode("type: init, hash: " + userSha1 + ", UUID: " + userAgent.uuid));
+                        outputStream.write(encode("type:init,hash:" + userSha1 + ",UUID:" + userAgent.uuid));
                         outputStream.flush();
 
                         //adding user to hashMap with hash + socket

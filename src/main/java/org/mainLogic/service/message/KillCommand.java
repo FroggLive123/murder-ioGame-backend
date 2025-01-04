@@ -1,4 +1,10 @@
 package org.mainLogic.service.message;
 
-public class KillCommand {
+import java.util.UUID;
+
+public record KillCommand(
+        String type,
+        String user,
+        int[] direction
+) {
 }

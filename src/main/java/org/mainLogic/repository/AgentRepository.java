@@ -6,15 +6,17 @@ import java.net.Socket;
 import java.util.*;
 
 public class AgentRepository {
-    Map<UUID, AgentEntity> agentHashMap = new HashMap<UUID, AgentEntity>();
-    public Map<String, Socket> userHashMap = new HashMap<>();
+    private Map<UUID, AgentEntity> agentHashMap = new HashMap<UUID, AgentEntity>();
+    private  Map<String, Socket> userHashMap = new HashMap<>();
+
     //Have to have two hasMaps, first will hase UUID + agentEntity, second will hase Hash + agentEntity
 
     public AgentRepository() {
 
     }
 
-    public void createUUIDRepository(ArrayList<AgentEntity> agentList) throws InterruptedException {
+    public void createUUIDRepository(final List<AgentEntity> agentList) throws InterruptedException {
+
         for (AgentEntity agentEntity : agentList) {
             agentHashMap.put(agentEntity.uuid, agentEntity);
         }
@@ -42,7 +44,12 @@ public class AgentRepository {
     }
 
     public AgentEntity getAgent(UUID uuid) {
+
         return agentHashMap.get(uuid);
+    }
+
+    public Map<String, Socket> getUserHashMap() {
+        return userHashMap;
     }
 
 }

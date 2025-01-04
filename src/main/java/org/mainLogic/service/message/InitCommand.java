@@ -1,7 +1,11 @@
 package org.mainLogic.service.message;
 
 
-public class InitCommand {
-    private String dataType;
-    private String
+import java.util.UUID;
+
+public record InitCommand(
+        String dataType,
+        String hash,
+        UUID uuid
+) {
 }
