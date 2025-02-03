@@ -2,15 +2,12 @@ package org.mainLogic;
 
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.repository.AgentRepository;
-import org.mainLogic.service.AgentService;
-import org.mainLogic.service.NotifyAgentService;
+import org.mainLogic.service.NotifyAgentSerice;
 import org.mainLogic.service.Server;
 
 
-import java.io.NotActiveException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class Application {
@@ -20,7 +17,7 @@ public class Application {
     public Application() {
     }
 
-    public void run(int amountOfPlayers) throws InterruptedException {
+    public void run(int amountOfPlayers) throws InterruptedException, IOException {
 
         if(isRunning){
             try {
@@ -52,14 +49,14 @@ public class Application {
         agentRepository.createUUIDRepository(agentList);
 
         //init agent services
-        AgentService agentService = new AgentService(agentRepository, amountOfPlayers);
-        NotifyAgentService notifyAgentService = new NotifyAgentService(agentService);
+        NotifyAgentSerice notifyAgentService = new NotifyAgentSerice();
 
-        //Start server
-        Server server = new Server();
-        server.start();
-
-        //start game loop
+        System.out.println(agentRepository.getAgentRepository());
+//        //Start server
+//        Server server = new Server(notifyAgentService);
+//        server.start();
+//
+//        //start game loop
     }
 }
 

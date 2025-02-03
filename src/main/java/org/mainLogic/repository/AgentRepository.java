@@ -6,8 +6,8 @@ import java.net.Socket;
 import java.util.*;
 
 public class AgentRepository {
-    private Map<UUID, AgentEntity> agentHashMap = new HashMap<UUID, AgentEntity>();
-    private  Map<String, Socket> userHashMap = new HashMap<>();
+    private Map<UUID, AgentEntity> agentHashMap = new HashMap<>();
+    private Map<String, Socket> userHashMap = new HashMap<>();
 
     //Have to have two hasMaps, first will hase UUID + agentEntity, second will hase Hash + agentEntity
 
@@ -31,12 +31,13 @@ public class AgentRepository {
     }
 
     public List<AgentEntity> getAgentRepository() {
+        List<AgentEntity> agentList = new ArrayList<>();
         for (Map.Entry<UUID, AgentEntity> entry : agentHashMap.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
-            List<AgentEntity> agents = new ArrayList<>((Collection) entry.getValue());
+            agentList.add(entry.getValue());
         }
 
-        return new ArrayList<>();
+        return agentList;
     }
 
     public Socket getUser(String userSha1) throws InterruptedException {

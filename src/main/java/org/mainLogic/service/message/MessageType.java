@@ -1,6 +1,7 @@
 package org.mainLogic.service.message;
 
 public record MessageType(
-    String type
+        //MessageType record is used for finding datatype of message
+    String dataType
 ){
 }

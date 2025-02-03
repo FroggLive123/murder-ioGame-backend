@@ -1,8 +1,10 @@
 package org.mainLogic.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.xml.bind.DatatypeConverter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.mainLogic.entity.AgentEntity;
+import org.mainLogic.service.message.InitCommand;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +31,8 @@ public class Server {
 
     // change to hashMap, key for hashMap is user hash
 
-    public void server(AgentService agentService) throws IOException {
+
+    public Server(AgentService agentService) throws IOException {
         this.agentService = agentService;
     }
 
@@ -112,14 +115,17 @@ public class Server {
                     //then create array with socket and sha1 hash
 
                     //creates sha1 hash from current time
+                    ObjectMapper objectMapper = new ObjectMapper();
                     long timeOfInit =  Instant.now().toEpochMilli();
                     String userSha1 = DigestUtils.sha1Hex(String.valueOf(timeOfInit));
 
                     //assign agent to user
-                    AgentEntity userAgent = agentService.randomAgent();
+                    AgentEntity userAgent = agentService.randomAgent(userSha1);
                     if(userAgent != null) {
+
+                        InitCommand initCommand = new InitCommand("init", userSha1, userAgent.uuid);
                         //send hash  to user
-                        outputStream.write(encode("type:init,hash:" + userSha1 + ",UUID:" + userAgent.uuid));
+                        outputStream.write(encode(objectMapper.writeValueAsString(initCommand)));
                         outputStream.flush();
 
                         //adding user to hashMap with hash + socket

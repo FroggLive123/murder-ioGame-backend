@@ -1,7 +1,7 @@
 package org.mainLogic.service.message;
 
 public record MoveCommand(
-        String type,
+        String dataType,
         String user,
         int[] direction
 ) {

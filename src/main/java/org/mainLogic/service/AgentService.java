@@ -82,13 +82,14 @@ public interface AgentService {
         }
     }
 
-    default AgentEntity randomAgent() {
+    default AgentEntity randomAgent(String hash) throws Exception {
 //        boolean research = true;
         List<AgentEntity> agents = agentRepository.getAgentRepository();
 
         for(int i = 0; i < agents.size(); i++){
             AgentEntity agent = agents.get(i);
-            if(agent.isBot) {
+            if(agent.userSocket.isEmpty()) {
+                agent.userSocket = hash;
                 return agent;
             }
         }
