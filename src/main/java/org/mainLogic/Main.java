@@ -3,7 +3,7 @@ package org.mainLogic;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) throws Exception {
 
         //create application class for init all program
         //Application has to create EntityArray

@@ -1,23 +1,21 @@
 package org.mainLogic.gameLoop;
 
 import org.mainLogic.entity.AgentEntity;
+import org.mainLogic.service.AgentService;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
-public class GameLoop {
+public class GameLoop implements Runnable {
 
     ArrayList<AgentEntity> listOfBots = new ArrayList<AgentEntity>();
     int maxPlayers = 40;
 
-    public GameLoop () throws InterruptedException {
-
-
+    public GameLoop (AgentService agentService) throws InterruptedException {
     }
 
-    public void StartGameLoop() {
-
-        while(true) {
+    @Override
+    public void run() {
+        while (true) {
 
             //Bot logic
 //            for(int i = 0; i < maxPlayers; i++) {
@@ -31,13 +29,8 @@ public class GameLoop {
 //            }
 
 
-
-
             //send to front
 
-
         }
-
     }
-
 }

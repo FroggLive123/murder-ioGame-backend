@@ -22,7 +22,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Server {
+public class Server implements Runnable {
     private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 
     private static MessageDigest SHA1;
@@ -36,7 +36,8 @@ public class Server {
         this.agentService = agentService;
     }
 
-    public void start() {
+    @Override
+    public void run() {
 
         try {
             SHA1 = MessageDigest.getInstance("SHA-1");

@@ -11,16 +11,12 @@ public class AgentRepository {
 
     //Have to have two hasMaps, first will hase UUID + agentEntity, second will hase Hash + agentEntity
 
-    public AgentRepository() {
-
-    }
-
-    public void createUUIDRepository(final List<AgentEntity> agentList) throws InterruptedException {
-
+    public AgentRepository(final List<AgentEntity> agentList) {
         for (AgentEntity agentEntity : agentList) {
             agentHashMap.put(agentEntity.uuid, agentEntity);
         }
     }
+
 
     public void addUser(String userSha1, Socket socket ) throws InterruptedException {
         userHashMap.put(userSha1, socket);

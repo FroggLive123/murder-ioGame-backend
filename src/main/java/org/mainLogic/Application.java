@@ -1,12 +1,13 @@
 package org.mainLogic;
 
 import org.mainLogic.entity.AgentEntity;
+import org.mainLogic.gameLoop.GameLoop;
 import org.mainLogic.repository.AgentRepository;
+import org.mainLogic.service.DefaultAgentService;
 import org.mainLogic.service.NotifyAgentSerice;
 import org.mainLogic.service.Server;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class Application {
     public Application() {
     }
 
-    public void run(int amountOfPlayers) throws InterruptedException, IOException {
+    public void run(int amountOfPlayers) throws Exception {
 
         if(isRunning){
             try {
@@ -30,7 +31,6 @@ public class Application {
         isRunning = true;
 
         //init of agent agentRepository with UUID hashMap
-        AgentRepository agentRepository = new AgentRepository();
         ArrayList<AgentEntity> agentList = new ArrayList<>();
 
         for(int i = 0; i < amountOfPlayers; i++) {
@@ -46,17 +46,21 @@ public class Application {
             agentList.add(agent);
         }
 
-        agentRepository.createUUIDRepository(agentList);
-
+        AgentRepository agentRepository = new AgentRepository(agentList);
         //init agent services
-        NotifyAgentSerice notifyAgentService = new NotifyAgentSerice();
 
-        System.out.println(agentRepository.getAgentRepository());
-//        //Start server
-//        Server server = new Server(notifyAgentService);
-//        server.start();
-//
-//        //start game loop
+        DefaultAgentService defaultAgentService = new DefaultAgentService(agentRepository);
+        NotifyAgentSerice notifyAgentSerice = new NotifyAgentSerice(defaultAgentService);
+
+        //GameLoop start
+        GameLoop gameLoop = new GameLoop(notifyAgentSerice);
+        new Thread(gameLoop).start();
+
+        //Start server
+        Server server = new Server(notifyAgentSerice);
+        server.run();
+
+        //start game loop
     }
 }
 

@@ -5,25 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="GameLoop alpha 11.12.24">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/entity/AgentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/entity/AgentEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/repository/AgentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/repository/AgentRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/AgentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/AgentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/DefaultAgentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/DefaultAgentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentSerice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentSerice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/AgentStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/AgentStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/KillCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/KillCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/MessageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/MessageType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/MoveCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/MoveCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mainLogic/Application.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mainLogic/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/entity/AgentEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mainLogic/entity/AgentEntity.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/repository/AgentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mainLogic/repository/AgentRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/service/AgentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mainLogic/service/AgentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/service/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mainLogic/service/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/service/AgentService.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,12 +47,12 @@
     &quot;assignee&quot;: &quot;FroggLive123&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/FroggLive123/murder-ioGame-backend.git&quot;,
-    &quot;accountId&quot;: &quot;594cf797-12a0-4072-9666-1929bae0dfbb&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/FroggLive123/murder-ioGame-backend.git",
+    "accountId": "564bc46f-fc40-4dbe-8bef-8e74bad4af78"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -73,31 +68,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.Server.executor": "Run",
-    "Application.WebSocketHandler.executor": "Run",
-    "Application.org.Test.Main (1).executor": "Run",
-    "Application.org.Test.Main.executor": "Run",
-    "Application.org.mainLogic.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "websocket-creation",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/vitalii/IdeaProjects/Vitalii Yakovenko15.11",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "/home/vitalii/IdeaProjects/murder-ioGame-backend/untitled/src/main/java/org/Test/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "inlay.hints",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Server.executor&quot;: &quot;Run&quot;,
+    &quot;Application.WebSocketHandler.executor&quot;: &quot;Run&quot;,
+    &quot;Application.org.Test.Main (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.org.Test.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.org.mainLogic.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;websocket-creation&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/vitalii/IdeaProjects/Vitalii Yakovenko15.11&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/home/vitalii/IdeaProjects/murder-ioGame-backend/untitled/src/main/java/org/Test/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.org.mainLogic.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-22" />
@@ -177,8 +172,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.387" />
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.387" />
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.419" />
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.419" />
       </set>
     </attachedChunks>
   </component>
@@ -228,6 +223,7 @@
       <workItem from="1738256512477" duration="1260000" />
       <workItem from="1738345737925" duration="1079000" />
       <workItem from="1738587014359" duration="2152000" />
+      <workItem from="1738696618047" duration="2560000" />
     </task>
     <task id="LOCAL-00001" summary="Project initialization">
       <option name="closed" value="true" />
@@ -309,19 +305,19 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="4" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentSerice.java</url>
-          <line>15</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentSerice.java</url>
-          <line>11</line>
-          <properties class="org.mainLogic.service.NotifyAgentSerice" method="randomAgent">
+          <url>file://$PROJECT_DIR$/src/main/java/org/mainLogic/repository/AgentRepository.java</url>
+          <line>28</line>
+          <properties class="org.mainLogic.repository.AgentRepository" method="getAgentRepository">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="11" />
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/mainLogic/repository/AgentRepository.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
