@@ -1,20 +1,18 @@
 package org.mainLogic.service;
 
-import org.mainLogic.dto.AgentDTO;
 import org.mainLogic.entity.AgentEntity;
-import org.mainLogic.repository.AgentRepository;
 
 import java.net.Socket;
-import java.time.Instant;
-import java.util.List;
-import java.util.Map;
+import java.util.Collection;
 import java.util.UUID;
 
 public interface AgentService {
 
-    void move(int[] direction, AgentEntity agent);
+    void move(int x, int y, UUID uuid);
 
     float[] getPosition(AgentEntity agent);
+
+    Collection<AgentEntity> getAll();
 
     void die(AgentEntity agent);
 

@@ -112,6 +112,8 @@ public class Server implements Runnable {
                         e.printStackTrace();
                     }
 
+
+                    // All messages have to be send by Alert class
                     //send hash for clients from current time
                     //then create array with socket and sha1 hash
 

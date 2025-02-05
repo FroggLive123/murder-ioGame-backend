@@ -5,7 +5,9 @@ import org.mainLogic.repository.AgentRepository;
 
 import java.net.Socket;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 public class DefaultAgentService implements  AgentService {
     private final AgentRepository agentRepository;
@@ -15,41 +17,16 @@ public class DefaultAgentService implements  AgentService {
     }
 
     @Override
-    public void move(int[] direction, AgentEntity agent) {
+    public void move(int x, int y, UUID uuid) {
+        //Create agentService to check if agent alive
 
-        int xMax = 1490;
-        int yMax = 1490;
-        int step = 10;
-
-        int x = direction[0];
-        int y = direction[1];
-
-        switch(x) {
-            case 0:
-                break;
-            case 1:
-                if( agent.x != xMax){
-                    agent.x += step;
-                }
-                break;
-            case -1:
-                if( agent.x != 10){
-                    agent.x -= step;
-                }
+        AgentEntity agent = agentRepository.getAgent(uuid);
+        if(!agent.isAlive()){
+            throw new IllegalStateException("Agent is not alive");
         }
-        switch(y) {
-            case 0:
-                break;
-            case 1:
-                if( agent.y != yMax){
-                    agent.y += step;
-                }
-                break;
-            case -1:
-                if( agent.y != 10){
-                    agent.y -= step;
-                }
-        }
+
+        agent.setX(x);
+        agent.setY(y);
     }
 
     @Override
@@ -75,6 +52,11 @@ public class DefaultAgentService implements  AgentService {
     }
 
     @Override
+    public Collection<AgentEntity> getAll() {
+        return agentRepository.getAll();
+    }
+
+    @Override
     public void addUser(String userSha1, Socket socket) throws Exception {
 
         int amountOfPlayers = 40;
@@ -90,7 +72,7 @@ public class DefaultAgentService implements  AgentService {
     @Override
     public AgentEntity randomAgent(String hash) throws Exception {
 //        boolean research = true;
-            List<AgentEntity> agents = agentRepository.getAgentRepository();
+            Collection<AgentEntity> agents = agentRepository.getAll();
 
             for(int i = 0; i < agents.size(); i++){
                 AgentEntity agent = agents.get(i);

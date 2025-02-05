@@ -26,14 +26,8 @@ public class AgentRepository {
         userHashMap.remove(userSha1);
     }
 
-    public List<AgentEntity> getAgentRepository() {
-        List<AgentEntity> agentList = new ArrayList<>();
-        for (Map.Entry<UUID, AgentEntity> entry : agentHashMap.entrySet()) {
-            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
-            agentList.add(entry.getValue());
-        }
-
-        return agentList;
+    public Collection<AgentEntity> getAll() {
+        return agentHashMap.values();
     }
 
     public Socket getUser(String userSha1) throws InterruptedException {

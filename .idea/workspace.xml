@@ -4,21 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="GameLoop alpha 11.12.24">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="GameLoop alpha 04.02.25">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/entity/AgentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/entity/AgentEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/repository/AgentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/repository/AgentRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/AgentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/AgentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/DefaultAgentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/DefaultAgentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentSerice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentSerice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mainLogic/Application.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mainLogic/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/repository/AgentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mainLogic/repository/AgentRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/service/AgentService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +217,7 @@
       <workItem from="1738256512477" duration="1260000" />
       <workItem from="1738345737925" duration="1079000" />
       <workItem from="1738587014359" duration="2152000" />
-      <workItem from="1738696618047" duration="2560000" />
+      <workItem from="1738696618047" duration="10869000" />
     </task>
     <task id="LOCAL-00001" summary="Project initialization">
       <option name="closed" value="true" />
@@ -273,7 +267,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733938554327</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="GameLoop alpha 04.02.25">
+      <option name="closed" value="true" />
+      <created>1738701670818</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1738701670818</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,7 +298,8 @@
     <MESSAGE value="GameLoop alpha 23.11.24" />
     <MESSAGE value="GameLoop alpha 30.11.24" />
     <MESSAGE value="GameLoop alpha 11.12.24" />
-    <option name="LAST_COMMIT_MESSAGE" value="GameLoop alpha 11.12.24" />
+    <MESSAGE value="GameLoop alpha 04.02.25" />
+    <option name="LAST_COMMIT_MESSAGE" value="GameLoop alpha 04.02.25" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -305,20 +308,6 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="4" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/org/mainLogic/repository/AgentRepository.java</url>
-          <line>28</line>
-          <properties class="org.mainLogic.repository.AgentRepository" method="getAgentRepository">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/mainLogic/repository/AgentRepository.java</url>
-          <line>30</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

@@ -4,11 +4,15 @@ import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.AgentService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class GameLoop implements Runnable {
 
+    AgentService agentService;
+
     ArrayList<AgentEntity> listOfBots = new ArrayList<AgentEntity>();
     int maxPlayers = 40;
+
 
     public GameLoop (AgentService agentService) throws InterruptedException {
     }
@@ -17,7 +21,19 @@ public class GameLoop implements Runnable {
     public void run() {
         while (true) {
 
-            //Bot logic
+            Collection<AgentEntity> agents = agentService.getAll();
+
+            for(AgentEntity agent: agents) {
+
+                if(!agent.isBot()){
+                    continue;
+                }
+
+                agentService.move(random(1, 8), agent);
+
+            }
+
+
 //            for(int i = 0; i < maxPlayers; i++) {
 //                if (Math.random() >= 0.3) {
 //                    //check if alive
@@ -32,5 +48,9 @@ public class GameLoop implements Runnable {
             //send to front
 
         }
+    }
+
+    private int random(int min , int max){
+        return (int)Math.floor(Math.random() * (max - min) + min);
     }
 }
