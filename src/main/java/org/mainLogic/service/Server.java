@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.xml.bind.DatatypeConverter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.mainLogic.entity.AgentEntity;
+import org.mainLogic.service.message.ErrorMessage;
 import org.mainLogic.service.message.InitCommand;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,14 +28,18 @@ public class Server implements Runnable {
     private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 
     private static MessageDigest SHA1;
+    //delete and throw that logic into SocketManager
     private static final List<Socket> clients = new ArrayList<>();
     private static AgentService agentService;
-
+    private Publisher publisher;
+    private ObjectMapper objectMapper;
     // change to hashMap, key for hashMap is user hash
 
 
-    public Server(AgentService agentService) throws IOException {
+    public Server(final AgentService agentService, Publisher publisher, ObjectMapper objectMapper) throws IOException {
         this.agentService = agentService;
+        this.publisher = publisher;
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -113,31 +119,26 @@ public class Server implements Runnable {
                     }
 
 
-                    // All messages have to be send by Alert class
-                    //send hash for clients from current time
-                    //then create array with socket and sha1 hash
-
-                    //creates sha1 hash from current time
-                    ObjectMapper objectMapper = new ObjectMapper();
                     long timeOfInit =  Instant.now().toEpochMilli();
                     String userSha1 = DigestUtils.sha1Hex(String.valueOf(timeOfInit));
-
-                    //assign agent to user
+                    try{
                     AgentEntity userAgent = agentService.randomAgent(userSha1);
-                    if(userAgent != null) {
+                    } catch (Exception e) {
+                        ErrorMessage errorMessage = new ErrorMessage("err", "ServerIsFull");
+                        try {
+                            publisher.send(userSha1, objectMapper.writeValueAsBytes(errorMessage));
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        continue;
+                    }
 
-                        InitCommand initCommand = new InitCommand("init", userSha1, userAgent.uuid);
-                        //send hash  to user
-                        outputStream.write(encode(objectMapper.writeValueAsString(initCommand)));
-                        outputStream.flush();
+                    InitCommand initCommand = new InitCommand("init", userSha1, userAgent.uuid);
 
-                        //adding user to hashMap with hash + socket
+                        publisher.send
                         agentService.addUser(userSha1, socket);
 
                         clients.add(socket);
-                    }else{
-                        outputStream.write(encode("type: err 'ServerIsFull'"));
-                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();

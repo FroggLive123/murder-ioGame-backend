@@ -1,5 +1,7 @@
 package org.mainLogic.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
@@ -7,7 +9,7 @@ import java.util.Optional;
 
 public class Publisher {
     SocketManager socketManager;
-    public Publisher(SocketManager socketManager) {
+    public Publisher(SocketManager socketManager, ObjectMapper objectMapper) {
         this.socketManager = socketManager;
     }
 

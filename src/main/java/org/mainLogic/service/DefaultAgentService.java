@@ -4,6 +4,7 @@ import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.repository.AgentRepository;
 
 import java.net.Socket;
+import java.rmi.NoSuchObjectException;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
@@ -81,6 +82,6 @@ public class DefaultAgentService implements  AgentService {
                     return agent;
                 }
             }
-            return null;
+            throw new NoSuchObjectException("There is no free agents");
     }
 }
