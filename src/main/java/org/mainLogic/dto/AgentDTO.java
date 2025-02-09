@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public record AgentDTO(
         UUID uuid,
-        float[] position,
+        int[] position,
         boolean alive
 ) {
 }

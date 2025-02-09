@@ -4,9 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.repository.AgentRepository;
+import org.mainLogic.service.message.KillMessage;
+import org.mainLogic.service.message.KillNotificationMessage;
+import org.mainLogic.service.message.MessageType;
 import org.mainLogic.service.message.PositionChangeMessage;
 
-import java.lang.runtime.ObjectMethods;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.Collection;
 import java.util.List;
@@ -60,7 +63,13 @@ public class NotifyAgentSerice implements AgentService {
     }
 
     @Override
-    public AgentEntity kill(int direction, UUID uuid) {
-        agentService.kill()
+    public UUID kill(int direction, UUID uuid) {
+        final KillNotificationMessage killNotificationMessage = new KillNotificationMessage("slash", uuid, direction);
+        try {
+            publisher.broadcastAll(objectMapper.writeValueAsBytes(killNotificationMessage));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        agentService.kill(direction, uuid);
     }
 }

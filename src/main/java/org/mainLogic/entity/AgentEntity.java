@@ -13,7 +13,7 @@ public class AgentEntity {
     private boolean isAlive  = true;
     private long timeOfDead ;
 
-    public AgentEntity(UUID uuid, int x, int y) throws InterruptedException {
+    public AgentEntity(final UUID uuid,final int x,final int y) throws InterruptedException {
         this.uuid = uuid;
 
         this.x = x;

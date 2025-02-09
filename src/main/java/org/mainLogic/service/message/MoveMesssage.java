@@ -1,8 +1,6 @@
 package org.mainLogic.service.message;
 
-import java.util.UUID;
-
-public record KillCommand(
+public record MoveMesssage(
         String dataType,
         String user,
         int[] direction

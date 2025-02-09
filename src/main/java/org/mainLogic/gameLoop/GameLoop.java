@@ -5,6 +5,7 @@ import org.mainLogic.service.AgentService;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
 
 public class GameLoop implements Runnable {
 
@@ -12,6 +13,7 @@ public class GameLoop implements Runnable {
 
     ArrayList<AgentEntity> listOfBots = new ArrayList<AgentEntity>();
     int maxPlayers = 40;
+    long rebornTime = 180000;
 
 
     public GameLoop (AgentService agentService) throws InterruptedException {
@@ -24,25 +26,24 @@ public class GameLoop implements Runnable {
             Collection<AgentEntity> agents = agentService.getAll();
 
             for(AgentEntity agent: agents) {
-
-                if(!agent.isBot()){
+                if(agent.isAlive()){
                     continue;
                 }
 
-                agentService.move(random(1, 8), agent);
+                if(System.currentTimeMillis() - agent.getTimeOfDead() >= rebornTime) {
+                    agent.setAlive(true);
+                }
+            }
+
+            for(AgentEntity agent: agents) {
+                if(!agent.isBot() || !agent.isAlive()){
+                    continue;
+                }
+                //There is place for problem with instant bot appearing and someone instant killing him
+                agentService.move(random(1, 8), random(1, 8), agent.getUuid());
 
             }
 
-
-//            for(int i = 0; i < maxPlayers; i++) {
-//                if (Math.random() >= 0.3) {
-//                    //check if alive
-//                    listOfBots.get(i).changePosition((Math.random() * 1490) > 745, (Math.random() * 690) > 345);
-//                }
-//                if (Math.random() >= 0.9) {
-//                    listOfBots.get(i).kill();
-//                }
-//            }
 
 
             //send to front

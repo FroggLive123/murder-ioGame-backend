@@ -5,7 +5,7 @@ import jakarta.xml.bind.DatatypeConverter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.message.ErrorMessage;
-import org.mainLogic.service.message.InitCommand;
+import org.mainLogic.service.message.InitMessage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +19,6 @@ import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -127,7 +126,7 @@ public class Server implements Runnable {
                     try{
                         AgentEntity userAgent = agentService.randomAgent(userSha1);
 
-                        InitCommand initCommand = new InitCommand("init", userSha1, userAgent.getUuid());
+                        InitMessage initCommand = new InitMessage("init", userSha1, userAgent.getUuid());
 
                         publisher.send(userSha1 ,objectMapper.writeValueAsBytes(initCommand));
 
@@ -144,7 +143,6 @@ public class Server implements Runnable {
                             throw new RuntimeException(ex);
                             //Ask if here needed any additional logic like closing socket if there is no any agents left
                         }
-                        continue;
                     }
 
                 } catch (Exception e) {

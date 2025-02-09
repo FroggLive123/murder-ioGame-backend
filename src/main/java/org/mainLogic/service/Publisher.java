@@ -30,5 +30,9 @@ public class Publisher {
         outputStream.write(message);
         outputStream.flush();
     }
+
+    public void broadcastAll(byte[] message) throws IOException {
+
+    }
 }
 

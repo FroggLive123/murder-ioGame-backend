@@ -1,13 +1,13 @@
 package org.mainLogic;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.gameLoop.GameLoop;
 import org.mainLogic.repository.AgentRepository;
-import org.mainLogic.service.DefaultAgentService;
-import org.mainLogic.service.NotifyAgentSerice;
-import org.mainLogic.service.Server;
+import org.mainLogic.service.*;
 
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -46,7 +46,10 @@ public class Application {
             agentList.add(agent);
         }
 
-        AgentRepository agentRepository = new AgentRepository(agentList);
+        final AgentRepository agentRepository = new AgentRepository(agentList);
+        final ObjectMapper objectMapper = new ObjectMapper();
+        final SocketManager socketManager = new SocketManager();
+        final Publisher publisher = new Publisher(socketManager, objectMapper);
         //init agent services
 
         DefaultAgentService defaultAgentService = new DefaultAgentService(agentRepository);
@@ -57,7 +60,7 @@ public class Application {
         new Thread(gameLoop).start();
 
         //Start server
-        Server server = new Server(notifyAgentSerice);
+        Server server = new Server(notifyAgentSerice, socketManager, publisher, objectMapper);
         server.run();
 
         //start game loop
