@@ -15,25 +15,19 @@ import java.util.UUID;
 public class NotifyAgentSerice implements AgentService {
 
     private final AgentService agentService;
+    private final Publisher publisher;
     private final ObjectMapper objectMapper;
 
-    public NotifyAgentSerice(AgentService agentService, ObjectMapper objectMapper) {
+    public NotifyAgentSerice(AgentService agentService, ObjectMapper objectMapper, Publisher publisher) {
         this.objectMapper = objectMapper;
         this.agentService = agentService;
+        this.publisher = publisher;
     }
 
     @Override
     public void move(int x, int y, UUID uuid) {
         agentService.move(x,y, uuid);
-
-        PositionChangeMessage positionChangeMessage = new PositionChangeMessage(x, y, uuid);
-
-        try {
-            alart.send(objectMapper.writeValueAsBytes(positionChangeMessage));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
         }
-    }
 
     @Override
     public float[] getPosition(AgentEntity agent) {
@@ -63,5 +57,10 @@ public class NotifyAgentSerice implements AgentService {
     @Override
     public AgentEntity randomAgent(String hash) throws Exception {
         return agentService.randomAgent(hash);
+    }
+
+    @Override
+    public AgentEntity kill(int direction, UUID uuid) {
+        agentService.kill()
     }
 }

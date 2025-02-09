@@ -31,13 +31,15 @@ public class Server implements Runnable {
     //delete and throw that logic into SocketManager
     private static final List<Socket> clients = new ArrayList<>();
     private static AgentService agentService;
-    private Publisher publisher;
-    private ObjectMapper objectMapper;
+    private final SocketManager socketManager;
+    private final Publisher publisher;
+    private final ObjectMapper objectMapper;
     // change to hashMap, key for hashMap is user hash
 
 
-    public Server(final AgentService agentService, Publisher publisher, ObjectMapper objectMapper) throws IOException {
+    public Server(final AgentService agentService,final SocketManager socketManager,final Publisher publisher,final ObjectMapper objectMapper) throws IOException {
         this.agentService = agentService;
+        this.socketManager = socketManager;
         this.publisher = publisher;
         this.objectMapper = objectMapper;
     }
@@ -72,7 +74,7 @@ public class Server implements Runnable {
     }
 
 
-    private static void listenServerSocket(final ServerSocket server) {
+    private void listenServerSocket(final ServerSocket server) {
         new Thread(() -> {
             while (true) {
                 try {
@@ -121,24 +123,29 @@ public class Server implements Runnable {
 
                     long timeOfInit =  Instant.now().toEpochMilli();
                     String userSha1 = DigestUtils.sha1Hex(String.valueOf(timeOfInit));
+                    //checking for exception with no any agents left
                     try{
-                    AgentEntity userAgent = agentService.randomAgent(userSha1);
+                        AgentEntity userAgent = agentService.randomAgent(userSha1);
+
+                        InitCommand initCommand = new InitCommand("init", userSha1, userAgent.getUuid());
+
+                        publisher.send(userSha1 ,objectMapper.writeValueAsBytes(initCommand));
+
+                        //Ask if delete of Map with Hash + socket from agentService needed
+                        agentService.addUser(userSha1, socket);
+                        socketManager.add(userSha1, socket);
+                        clients.add(socket);
+
                     } catch (Exception e) {
                         ErrorMessage errorMessage = new ErrorMessage("err", "ServerIsFull");
                         try {
                             publisher.send(userSha1, objectMapper.writeValueAsBytes(errorMessage));
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
+                            //Ask if here needed any additional logic like closing socket if there is no any agents left
                         }
                         continue;
                     }
-
-                    InitCommand initCommand = new InitCommand("init", userSha1, userAgent.uuid);
-
-                        publisher.send
-                        agentService.addUser(userSha1, socket);
-
-                        clients.add(socket);
 
                 } catch (Exception e) {
                     e.printStackTrace();

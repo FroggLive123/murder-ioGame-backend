@@ -4,20 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="GameLoop alpha 03.02.25">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/ErrorMessage.java" afterDir="false" />
+    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="Changes sync 05.02.25">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/DefaultAgentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/DefaultAgentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Publisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Publisher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentSerice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentSerice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/Application.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/entity/AgentEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/gameLoop/GameLoop.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/repository/AgentRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/service/DefaultAgentService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mainLogic/service/Server.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,12 +38,12 @@
     &quot;assignee&quot;: &quot;FroggLive123&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/FroggLive123/murder-ioGame-backend.git",
-    "accountId": "594cf797-12a0-4072-9666-1929bae0dfbb"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/FroggLive123/murder-ioGame-backend.git&quot;,
+    &quot;accountId&quot;: &quot;594cf797-12a0-4072-9666-1929bae0dfbb&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" root0="FORCE_HIGHLIGHTING" />
   </component>
