@@ -6,23 +6,23 @@ import org.mainLogic.repository.AgentRepository;
 import java.net.Socket;
 import java.rmi.NoSuchObjectException;
 import java.time.Instant;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class DefaultAgentService implements  AgentService {
     private final AgentRepository agentRepository;
+    private final Map<UUID, AgentEntity> agentMap;
 
     public DefaultAgentService(AgentRepository agentRepository) {
         this.agentRepository = agentRepository;
+        this.agentMap = createAgentHashMap(agentRepository.getAll());
     }
 
     @Override
     public void move(int x, int y, UUID uuid) {
         //Create agentService to check if agent alive
 
-        AgentEntity agent = agentRepository.getAgent(uuid);
-        if(!agent.isAlive()){
+        AgentEntity agent = agentMap.get(uuid);
+        if (!agent.isAlive()) {
             throw new IllegalStateException("Agent is not alive");
         }
 
@@ -31,24 +31,30 @@ public class DefaultAgentService implements  AgentService {
     }
 
     @Override
-    public float[] getPosition(AgentEntity agent) {
+    public float[] getPosition(UUID uuid) {
+        AgentEntity agent = agentMap.get(uuid);
+
         float[] position = new float[2];
-        position[0] = (float) agent.x;
-        position[1] = (float) agent.y;
+        position[0] = (float) agent.getX();
+        position[1] = (float) agent.getY();
         return position;
     }
 
     @Override
-    public void die(AgentEntity agent) {
+    public void die(UUID uuid) {
+        AgentEntity agent = agentMap.get(uuid);
+
         long timeOfDead = Instant.now().toEpochMilli();
-        agent.isAlive = false;
-        agent.timeOfDead = timeOfDead;
+        agent.setAlive(false);
+        agent.setTimeOfDead(timeOfDead);
     }
 
     @Override
-    public void reborn(AgentEntity agent) {
-        if((agent.timeOfDead - Instant.now().toEpochMilli()) > 180000){
-            agent.isAlive = true;
+    public void reborn(UUID uuid) {
+        AgentEntity agent = agentMap.get(uuid);
+
+        if ((agent.getTimeOfDead() - Instant.now().toEpochMilli()) > 180000) {
+            agent.setAlive(true);
         }
     }
 
@@ -63,9 +69,9 @@ public class DefaultAgentService implements  AgentService {
         int amountOfPlayers = 40;
 
         //overflow system
-        if(amountOfPlayers > agentRepository.getUserHashMap().size()){
+        if (amountOfPlayers > agentRepository.getUserHashMap().size()) {
             agentRepository.addUser(userSha1, socket);
-        }else{
+        } else {
             throw new Exception("overflow");
         }
     }
@@ -73,15 +79,46 @@ public class DefaultAgentService implements  AgentService {
     @Override
     public AgentEntity randomAgent(String hash) throws Exception {
 //        boolean research = true;
-            Collection<AgentEntity> agents = agentRepository.getAll();
+        List<AgentEntity> agents = (List<AgentEntity>) agentMap.values();
 
-            for(int i = 0; i < agents.size(); i++){
-                AgentEntity agent = agents.get(i);
-                if(agent.userSocket.isEmpty()) {
-                    agent.userSocket = hash;
-                    return agent;
-                }
+        for (int i = 0; i < agents.size(); i++) {
+            AgentEntity agent = agents.get(i);
+            if (agent.getUserSocket().isEmpty()) {
+                agent.setUserSocket(hash);
+                return agent;
             }
-            throw new NoSuchObjectException("There is no free agents");
+        }
+        throw new NoSuchObjectException("There is no free agents");
+    }
+
+    @Override
+    public List<UUID> kill(final int direction,final UUID userUuid) {
+        final AgentEntity user = agentMap.get(userUuid);
+
+        if(direction > 8 || direction < 1) {
+            throw new IllegalArgumentException("direction must be between 0 and 8");
+        }
+
+        final int[] agentHitBox = {10,10};
+        final int[] slashHitBox = {15,15};
+
+        final int[] userPosition = {user.getX(), user.getY()};
+        int[] slashPosition;
+
+        switch (direction) {
+            case 1:
+        }
+
+        return null;
+    }
+
+    private HashMap<UUID, AgentEntity> createAgentHashMap(Collection<AgentEntity> agents) {
+        HashMap<UUID, AgentEntity> map = new HashMap<>();
+
+        for (AgentEntity agent : agents) {
+            map.put(agent.getUuid(), agent);
+        }
+
+        return map;
     }
 }

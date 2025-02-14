@@ -24,23 +24,23 @@ public class AgentEntity {
         return userSocket == null;
     }
 
-    public void setX(int x) {
+    public void setX(final int x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(final int y) {
         this.y = y;
     }
 
-    public void setUserSocket(String userSocket) {
+    public void setUserSocket(final String userSocket) {
         this.userSocket = userSocket;
     }
 
-    public void setAlive(boolean alive) {
+    public void setAlive(final boolean alive) {
         isAlive = alive;
     }
 
-    public void setTimeOfDead(long timeOfDead) {
+    public void setTimeOfDead(final long timeOfDead) {
         this.timeOfDead = timeOfDead;
     }
 

@@ -4,22 +4,25 @@ import org.mainLogic.entity.AgentEntity;
 
 import java.net.Socket;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 public interface AgentService {
 
-    void move(int x, int y, UUID uuid);
+    void move(final int x,final int y,final UUID uuid);
 
-    float[] getPosition(AgentEntity agent);
+    float[] getPosition(UUID uuid);
 
     Collection<AgentEntity> getAll();
 
-    void die(AgentEntity agent);
+    void die(UUID uuid);
 
-    void reborn(AgentEntity agent);
+    void reborn(UUID uuid);
 
-    void addUser(String userSha1, Socket socket) throws Exception;
+    void addUser(final int userId,final Socket socket) throws Exception;
 
     AgentEntity randomAgent(String hash) throws Exception;
+
+    List<UUID> kill(int direction, UUID uuid);
 }
 

@@ -4,19 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="Changes sync 05.02.25">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/KillNotificationMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/dto/AgentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/dto/AgentDTO.java" afterDir="false" />
+    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="Changes sync 09.02.25">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/CommandQueue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Executor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/MoveExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_02_2025,_16_54_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_02_2025__16_54__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_02_2025,_13_59_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_02_2025__13_59__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/entity/AgentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/entity/AgentEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/AgentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/AgentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/DefaultAgentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/DefaultAgentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentSerice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentSerice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Publisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Publisher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/AgentStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/AgentStatusMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/InitCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/InitMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/KillCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/KillMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/MoveCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/MoveMesssage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,6 +225,9 @@
       <workItem from="1738587014359" duration="2152000" />
       <workItem from="1738696618047" duration="10869000" />
       <workItem from="1738787786197" duration="1123000" />
+      <workItem from="1739139457621" duration="1311000" />
+      <workItem from="1739201997007" duration="2255000" />
+      <workItem from="1739530859932" duration="1427000" />
     </task>
     <task id="LOCAL-00001" summary="Project initialization">
       <option name="closed" value="true" />
@@ -281,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738701670818</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Changes sync 09.02.25">
+      <option name="closed" value="true" />
+      <created>1739139530778</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1739139530778</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -305,7 +317,8 @@
     <MESSAGE value="GameLoop alpha 30.11.24" />
     <MESSAGE value="GameLoop alpha 11.12.24" />
     <MESSAGE value="GameLoop alpha 04.02.25" />
-    <option name="LAST_COMMIT_MESSAGE" value="GameLoop alpha 04.02.25" />
+    <MESSAGE value="Changes sync 09.02.25" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes sync 09.02.25" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
