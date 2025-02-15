@@ -3,9 +3,8 @@ package org.mainLogic.gameLoop;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.AgentService;
 import org.mainLogic.service.CommandQueue;
-import org.mainLogic.service.Executor;
+import org.mainLogic.service.executors.Executor;
 import org.mainLogic.service.Publisher;
-import org.springframework.beans.factory.support.ManagedMap;
 
 import java.io.IOException;
 import java.util.*;
