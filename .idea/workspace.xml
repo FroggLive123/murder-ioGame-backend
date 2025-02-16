@@ -4,17 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="Changes sync 09.02.25">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executors/BotMoveExecutor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executors/KillExecutor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executors/RebornExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/CommandQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/CommandQueue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Executor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executors/Executor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/MoveExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executors/UserMoveExecutor.java" afterDir="false" />
+    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="Changes sync 14.02.25">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executors/UserMoveExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executors/UserMoveExecutor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -8,7 +8,7 @@ public class UserMoveExecutor implements Executor {
             return false;
         }
 
-        int userId ;
+        short userId = cmd[1] ;
 
         return true;
     }
