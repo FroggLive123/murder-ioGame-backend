@@ -17,7 +17,7 @@ public interface AgentService {
 
     void die(UUID uuid);
 
-    void reborn(UUID uuid);
+    void rebornAll();
 
     void addUser(final int userId,final Socket socket) throws Exception;
 

@@ -2,6 +2,7 @@ package org.mainLogic.service;
 
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.repository.AgentRepository;
+import org.springframework.boot.autoconfigure.ldap.LdapProperties;
 
 import java.net.Socket;
 import java.rmi.NoSuchObjectException;
@@ -50,11 +51,11 @@ public class DefaultAgentService implements  AgentService {
     }
 
     @Override
-    public void reborn(UUID uuid) {
-        AgentEntity agent = agentMap.get(uuid);
-
-        if ((agent.getTimeOfDead() - Instant.now().toEpochMilli()) > 180000) {
-            agent.setAlive(true);
+    public void rebornAll() {
+        for(AgentEntity agent : agentRepository.getAll()) {
+            if ((agent.getTimeOfDead() - Instant.now().toEpochMilli()) > 180000) {
+                agent.setAlive(true);
+            }
         }
     }
 
@@ -110,6 +111,14 @@ public class DefaultAgentService implements  AgentService {
         }
 
         return null;
+    }
+
+    public List<UUID> getAllUUID() {
+        List<UUID> uuidArray = new ArrayList<>();
+        for(AgentEntity agent: agentMap.values()) {
+            uuidArray.add(agent.getUuid());
+        }
+        return uuidArray;
     }
 
     private HashMap<UUID, AgentEntity> createAgentHashMap(Collection<AgentEntity> agents) {

@@ -6,9 +6,6 @@ public class CommandQueue {
     int last;
 
 /* Commands are stored in class CommandQueue in bytes.
-    0 ll be used to separate different parts of the command.
-    There is no space 0 between first type byte and second data bytes for optimizing space usage.
-
     commands:
         1 - BotMove
         2 - UserMove
@@ -50,6 +47,7 @@ public class CommandQueue {
 
         return command;
     }
+
 
     public void put(final byte[] command) {
         if(commands[last] != null) {

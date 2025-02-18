@@ -6,5 +6,5 @@ public record PositionChangeMessage(
         int x,
         int y,
         UUID uuid
-) {
+) implements Message {
 }

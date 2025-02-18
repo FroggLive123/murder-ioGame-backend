@@ -43,8 +43,8 @@ public class NotifyAgentSerice implements AgentService {
     }
 
     @Override
-    public void reborn(UUID uuid) {
-        agentService.reborn(uuid);
+    public void rebornAll(UUID uuid) {
+        agentService.rebornAll(uuid);
     }
 
     @Override

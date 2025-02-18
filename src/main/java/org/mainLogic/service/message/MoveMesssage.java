@@ -4,5 +4,5 @@ public record MoveMesssage(
         String dataType,
         String user,
         int[] direction
-) {
+) implements Message {
 }

@@ -7,5 +7,5 @@ public record InitMessage(
         String dataType,
         String hash,
         UUID uuid
-) {
+) implements Message {
 }

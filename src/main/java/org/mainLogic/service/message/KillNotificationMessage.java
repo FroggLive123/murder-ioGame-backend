@@ -6,5 +6,5 @@ public record KillNotificationMessage(
         String datatype,
         UUID uuid,
         int direction
-) {
+) implements Message {
 }
