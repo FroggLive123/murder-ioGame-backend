@@ -2,7 +2,6 @@ package org.mainLogic.service;
 
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.repository.AgentRepository;
-import org.springframework.boot.autoconfigure.ldap.LdapProperties;
 
 import java.net.Socket;
 import java.rmi.NoSuchObjectException;
@@ -12,10 +11,12 @@ import java.util.*;
 public class DefaultAgentService implements  AgentService {
     private final AgentRepository agentRepository;
     private final Map<UUID, AgentEntity> agentMap;
+    private final AgentService agentService;
 
-    public DefaultAgentService(AgentRepository agentRepository) {
+    public DefaultAgentService(final AgentRepository agentRepository, final AgentService agentService) {
         this.agentRepository = agentRepository;
         this.agentMap = createAgentHashMap(agentRepository.getAll());
+        this.agentService = agentService;
     }
 
     @Override
@@ -84,8 +85,8 @@ public class DefaultAgentService implements  AgentService {
 
         for (int i = 0; i < agents.size(); i++) {
             AgentEntity agent = agents.get(i);
-            if (agent.getUserSocket().isEmpty()) {
-                agent.setUserSocket(hash);
+            if (agent.getUserid().isEmpty()) {
+                agent.setUserid(hash);
                 return agent;
             }
         }
@@ -111,6 +112,11 @@ public class DefaultAgentService implements  AgentService {
         }
 
         return null;
+    }
+
+    @Override
+    public AgentEntity getAgent(Socket socket) {
+
     }
 
     public List<UUID> getAllUUID() {

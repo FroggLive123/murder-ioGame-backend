@@ -6,6 +6,6 @@ import java.util.List;
 
 public record AgentStatusMessage (
         String dateType,
-        List<AgentDTO> agents
+        List<AgentDTO> agentDTOS
 ) implements Message {
 }

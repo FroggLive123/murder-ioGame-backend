@@ -8,18 +8,19 @@ import java.net.Socket;
 import java.util.Optional;
 
 public class UserMoveExecutor implements Executor {
-    private static final byte step = 10;
+    private final byte step;
     private static final byte CMD_TYPE = 2;
     private final SocketManager socketManager;
     private final AgentService agentService;
     private final short xMax;
     private final short yMax;
 
-    public UserMoveExecutor(final SocketManager socketManager, final AgentService agentService,final short xMax,final short yMax) {
+    public UserMoveExecutor(final SocketManager socketManager, final AgentService agentService,final short xMax,final short yMax, final byte step) {
         this.socketManager = socketManager;
         this.agentService = agentService;
         this.xMax = xMax;
         this.yMax = yMax;
+        this.step = step;
     }
 
     @Override

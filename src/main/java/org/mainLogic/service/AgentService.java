@@ -19,7 +19,7 @@ public interface AgentService {
 
     void rebornAll();
 
-    void addUser(final int userId,final Socket socket) throws Exception;
+    void addUser(String userSha1, Socket socket) throws Exception;
 
     AgentEntity randomAgent(String hash) throws Exception;
 

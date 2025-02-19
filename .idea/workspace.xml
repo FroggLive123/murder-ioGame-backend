@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="Changes sync 15.02.25">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/SocketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/SocketManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executors/Executor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executors/Executor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executors/UserMoveExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executors/UserMoveExecutor.java" afterDir="false" />
-    </list>
+    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="Changes sync 18.02.25" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -219,6 +215,7 @@
       <workItem from="1739201997007" duration="2255000" />
       <workItem from="1739530859932" duration="1427000" />
       <workItem from="1739708525344" duration="3127000" />
+      <workItem from="1739892421033" duration="2526000" />
     </task>
     <task id="LOCAL-00001" summary="Project initialization">
       <option name="closed" value="true" />
@@ -292,7 +289,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739708568074</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Changes sync 18.02.25">
+      <option name="closed" value="true" />
+      <created>1739898183749</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1739898183749</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -318,7 +323,8 @@
     <MESSAGE value="GameLoop alpha 04.02.25" />
     <MESSAGE value="Changes sync 09.02.25" />
     <MESSAGE value="Changes sync 15.02.25" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes sync 15.02.25" />
+    <MESSAGE value="Changes sync 18.02.25" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes sync 18.02.25" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

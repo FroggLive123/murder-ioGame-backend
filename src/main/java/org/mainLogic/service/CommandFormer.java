@@ -10,6 +10,8 @@ public class CommandFormer {
     }
 
     public byte[] form(Message message) {
-        
+        //ask about possible way to create form method
+
+
     }
 }

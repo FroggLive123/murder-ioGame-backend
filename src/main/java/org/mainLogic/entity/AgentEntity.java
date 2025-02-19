@@ -1,7 +1,5 @@
 package org.mainLogic.entity;
 
-import java.net.Socket;
-import java.time.Instant;
 import java.util.UUID;
 
 public class AgentEntity {
@@ -9,7 +7,7 @@ public class AgentEntity {
     private final UUID uuid;
     private int x;
     private int y;
-    private String userSocket;
+    private Short userid;
     private boolean isAlive  = true;
     private long timeOfDead ;
 
@@ -21,7 +19,7 @@ public class AgentEntity {
     }
 
     public boolean isBot() {
-        return userSocket == null;
+        return userid == null;
     }
 
     public void setX(final int x) {
@@ -32,8 +30,8 @@ public class AgentEntity {
         this.y = y;
     }
 
-    public void setUserSocket(final String userSocket) {
-        this.userSocket = userSocket;
+    public void setUserid(final short userid) {
+        this.userid = userid;
     }
 
     public void setAlive(final boolean alive) {
@@ -56,8 +54,8 @@ public class AgentEntity {
         return y;
     }
 
-    public String getUserSocket() {
-        return userSocket;
+    public String getUserid() {
+        return userid;
     }
 
     public boolean isAlive() {

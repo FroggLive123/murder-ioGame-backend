@@ -25,8 +25,17 @@ public class KillExecutor implements Executor {
 
         final short userId = byteToInt(cmd[1], cmd[2]);
         final Optional<Socket> socket = socketManager.get(userId);
-        final byte kill = cmd[3];
+        //ask about Problem
+        if(socket.isEmpty()) {
+            return true;
+        }
+        //Todo: rework this, AgentEntity has own userid (short)
+        final AgentEntity agent = agentService.getAgent(socket);
+        final byte direction = cmd[3];
 
+        agentService.kill(direction, agent.getUuid());
+
+        return true;
     }
 
 

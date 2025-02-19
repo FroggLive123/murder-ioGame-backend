@@ -6,6 +6,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.message.ErrorMessage;
 import org.mainLogic.service.message.InitMessage;
+import org.mainLogic.service.message.KillMessage;
+import org.mainLogic.service.message.MessageType;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,9 +19,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,14 +34,26 @@ public class Server implements Runnable {
     private final SocketManager socketManager;
     private final Publisher publisher;
     private final ObjectMapper objectMapper;
+    private final List<CommandSerializer> serializers;
+    private final CommandQueue commandQueue;
     // change to hashMap, key for hashMap is user hash
 
 
-    public Server(final AgentService agentService,final SocketManager socketManager,final Publisher publisher,final ObjectMapper objectMapper) throws IOException {
+    public Server(
+            final AgentService agentService,
+            final SocketManager socketManager,
+            final Publisher publisher,
+            final ObjectMapper objectMapper,
+            final List<CommandSerializer> serializers, CommandQueue commandQueue
+    ) throws IOException {
+
         this.agentService = agentService;
         this.socketManager = socketManager;
         this.publisher = publisher;
         this.objectMapper = objectMapper;
+        this.serializers = serializers;
+        this.commandQueue = commandQueue;
+
     }
 
     @Override
@@ -157,7 +170,7 @@ public class Server implements Runnable {
     //https://stackoverflow.com/questions/8125507/how-can-i-send-and-receive-websocket-messages-on-the-server-side
 
 
-    private static void printInputStream() throws IOException {
+    private void printInputStream() throws IOException {
         int len = 0;
         byte[] b = new byte[1024]; //1kB
         //rawIn is a Socket.getInputStream();
@@ -213,15 +226,11 @@ public class Server implements Runnable {
                     message[j] = (byte) (b[i] ^ masks[j % 4]);
                 }
 
-                System.out.println(new String(message));
+                onMessage(message, socketManager.getId(client));
 
-                b = new byte[1024];
-
-                var out = client.getOutputStream();
-                var encoded = encode("Pong");
-                System.out.printf("OUT %s\n", new String(encodeHex(encoded)));
-                out.write(encoded);
-                out.flush();
+                for(int k = 0; k < b.length ; k++) {
+                    b[k] = 0;
+                }
             }
         }
     }
@@ -334,7 +343,29 @@ public class Server implements Runnable {
         }
     }
 
+    private void onMessage(byte[] message, short userId) {
+        try {
+            Message message1 = objectMapper.readValue(message, Message.class);
 
+            for(CommandSerializer serializer: serializers) {
+                byte[] command = serializer.apply(message1, userId);
+                if(command != null) {
+                    commandQueue.put(command);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private void onError() {
+
+    }
+
+    public static class Message extends HashMap<String, Object> {
+
+    }
 }
 
 

@@ -1,10 +1,14 @@
 package org.mainLogic.gameLoop;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.mainLogic.dto.AgentDTO;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.AgentService;
+import org.mainLogic.service.CommandFormer;
 import org.mainLogic.service.CommandQueue;
 import org.mainLogic.service.executors.Executor;
 import org.mainLogic.service.Publisher;
+import org.mainLogic.service.message.AgentStatusMessage;
 
 import java.io.IOException;
 import java.util.*;
@@ -15,17 +19,23 @@ public class GameLoop implements Runnable {
     private final CommandQueue commandQueue;
     private final AgentService agentService;
     private final List<Executor> executors;
+    private final CommandFormer commandFormer;
+    private final ObjectMapper objectMapper;
 
     ArrayList<AgentEntity> listOfBots = new ArrayList<AgentEntity>();
     int maxPlayers = 40;
     long rebornTime = 180000;
 
 
-    public GameLoop (final AgentService agentService, final Publisher publisher, final CommandQueue commandQueue, List<Executor> executors) throws InterruptedException {
+    public GameLoop (final AgentService agentService, final Publisher publisher, final CommandQueue commandQueue, final List<Executor> executors, final CommandFormer commandFormer,
+                     final ObjectMapper objectMapper
+    ) throws InterruptedException {
         this.agentService = agentService;
         this.publisher = publisher;
         this.commandQueue = commandQueue;
         this.executors = executors;
+        this.commandFormer = commandFormer;
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -40,7 +50,7 @@ public class GameLoop implements Runnable {
                 process(commandQueue.next());
             }
 
-            final byte[] agentStatusMessage = formAgentStatusMessage();
+            final byte[] agentStatusMessage = createAgentStatusMessage();
             try {
                 publisher.broadcastAll(agentStatusMessage);
             } catch (IOException e) {
@@ -50,16 +60,27 @@ public class GameLoop implements Runnable {
         }
     }
 
+    private byte[] createAgentStatusMessage() {
+        final Collection<AgentEntity> agents = agentService.getAll();
+        List<AgentDTO> agentDTOS = new ArrayList<>();
+
+        for(AgentEntity agent: agents){
+            int[] possition = {agent.getX(), agent.getY()};
+            AgentDTO agentDTO = new AgentDTO(agent.getUuid(), possition, agent.isAlive());
+
+            agentDTOS.add(agentDTO);
+        }
+
+        AgentStatusMessage agentStatusMessage = new AgentStatusMessage("AgentStatus", agentDTOS);
+        byte[] message = objectMapper.writeValueAsBytes()
+    }
+
     private void process(byte[] next) {
         for(Executor executor : executors){
             if(executor.accept(next)) {
                 break;
             }
         }
-    }
-
-    private byte[] formAgentStatusMessage() {
-
     }
 
     private void reborn(final Collection<AgentEntity> agents) {
