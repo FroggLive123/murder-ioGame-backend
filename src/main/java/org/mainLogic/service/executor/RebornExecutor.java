@@ -1,4 +1,4 @@
-package org.mainLogic.service.executors;
+package org.mainLogic.service.executor;
 
 import org.mainLogic.service.AgentService;
 

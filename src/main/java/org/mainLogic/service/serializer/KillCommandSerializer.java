@@ -1,13 +1,13 @@
-package org.mainLogic.service;
+package org.mainLogic.service.serializer;
 
-import org.mainLogic.service.message.MoveMesssage;
 import org.util.LittleEndian;
 
 import java.util.Map;
 
-public class MoveCommandSerializer implements CommandSerializer{
-    private static final String  DATA_TYPE = "move";
+public class KillCommandSerializer implements CommandSerializer {
+    private static final String  DATA_TYPE = "kill";
     private static final byte BYTE_SIZE = 4;
+
     @Override
     public byte[] apply(Map<String, Object> message, short userId) {
         if (!message.get("datatype").equals(DATA_TYPE)) {

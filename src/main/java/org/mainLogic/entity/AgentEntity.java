@@ -54,7 +54,7 @@ public class AgentEntity {
         return y;
     }
 
-    public String getUserid() {
+    public Short getUserid() {
         return userid;
     }
 

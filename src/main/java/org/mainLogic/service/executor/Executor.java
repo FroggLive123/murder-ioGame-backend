@@ -1,6 +1,4 @@
-package org.mainLogic.service.executors;
-
-import org.mainLogic.service.SocketManager;
+package org.mainLogic.service.executor;
 
 public interface Executor {
     //Have to create executors for all commands like die,kill,reborn

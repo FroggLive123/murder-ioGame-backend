@@ -1,12 +1,9 @@
-package org.mainLogic.service.executors;
+package org.mainLogic.service.executor;
 
-import com.fasterxml.jackson.databind.ser.AnyGetterWriter;
-import jdk.dynalink.linker.LinkerServices;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.AgentService;
 
 import java.util.Collection;
-import java.util.List;
 
 public class BotMoveExecutor implements Executor {
     private static final byte CMD_TYPE = 1;

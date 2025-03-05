@@ -10,20 +10,14 @@ import java.util.*;
 
 public class DefaultAgentService implements  AgentService {
     private final AgentRepository agentRepository;
-    private final Map<UUID, AgentEntity> agentMap;
-    private final AgentService agentService;
 
-    public DefaultAgentService(final AgentRepository agentRepository, final AgentService agentService) {
+    public DefaultAgentService(final AgentRepository agentRepository) {
         this.agentRepository = agentRepository;
-        this.agentMap = createAgentHashMap(agentRepository.getAll());
-        this.agentService = agentService;
     }
 
     @Override
-    public void move(int x, int y, UUID uuid) {
-        //Create agentService to check if agent alive
-
-        AgentEntity agent = agentMap.get(uuid);
+    public void move(final short x, final short y, final UUID uuid) {
+        AgentEntity agent = agentRepository.getAgent(uuid);
         if (!agent.isAlive()) {
             throw new IllegalStateException("Agent is not alive");
         }
@@ -34,7 +28,7 @@ public class DefaultAgentService implements  AgentService {
 
     @Override
     public float[] getPosition(UUID uuid) {
-        AgentEntity agent = agentMap.get(uuid);
+        AgentEntity agent = agentRepository.getAgent(uuid);
 
         float[] position = new float[2];
         position[0] = (float) agent.getX();
@@ -44,7 +38,7 @@ public class DefaultAgentService implements  AgentService {
 
     @Override
     public void die(UUID uuid) {
-        AgentEntity agent = agentMap.get(uuid);
+        AgentEntity agent = agentRepository.getAgent(uuid);
 
         long timeOfDead = Instant.now().toEpochMilli();
         agent.setAlive(false);
@@ -66,36 +60,23 @@ public class DefaultAgentService implements  AgentService {
     }
 
     @Override
-    public void addUser(String userSha1, Socket socket) throws Exception {
-
-        int amountOfPlayers = 40;
-
-        //overflow system
-        if (amountOfPlayers > agentRepository.getUserHashMap().size()) {
-            agentRepository.addUser(userSha1, socket);
-        } else {
-            throw new Exception("overflow");
-        }
-    }
-
-    @Override
-    public AgentEntity randomAgent(String hash) throws Exception {
+    public AgentEntity randomAgent(final short userid) throws Exception {
 //        boolean research = true;
-        List<AgentEntity> agents = (List<AgentEntity>) agentMap.values();
+        final Collection<AgentEntity> agents = agentRepository.getAll();
 
-        for (int i = 0; i < agents.size(); i++) {
-            AgentEntity agent = agents.get(i);
-            if (agent.getUserid().isEmpty()) {
-                agent.setUserid(hash);
+        for (AgentEntity agent : agents) {
+            if(agent.getUserid() == null) {
+                agent.setUserid(userid);
                 return agent;
             }
         }
+
         throw new NoSuchObjectException("There is no free agents");
     }
 
     @Override
     public List<UUID> kill(final int direction,final UUID userUuid) {
-        final AgentEntity user = agentMap.get(userUuid);
+        final AgentEntity user = agentRepository.getAgent(userUuid);
 
         if(direction > 8 || direction < 1) {
             throw new IllegalArgumentException("direction must be between 0 and 8");
@@ -115,16 +96,31 @@ public class DefaultAgentService implements  AgentService {
     }
 
     @Override
-    public AgentEntity getAgent(Socket socket) {
+    public AgentEntity getAgent(final short userid) {
+        final Collection<AgentEntity> agents = agentRepository.getAll();
 
+        AgentEntity user = null;
+
+        for(AgentEntity agent : agents) {
+            if(agent.getUserid().equals(userid)) {
+                user = agent;
+                break;
+            }
+        }
+
+        return user;
     }
 
     public List<UUID> getAllUUID() {
-        List<UUID> uuidArray = new ArrayList<>();
-        for(AgentEntity agent: agentMap.values()) {
-            uuidArray.add(agent.getUuid());
+        final Collection<AgentEntity> agents = agentRepository.getAll();
+
+        List<UUID> uuids = new ArrayList<>();
+
+        for (AgentEntity agent : agents) {
+            uuids.add(agent.getUuid());
         }
-        return uuidArray;
+
+        return uuids;
     }
 
     private HashMap<UUID, AgentEntity> createAgentHashMap(Collection<AgentEntity> agents) {

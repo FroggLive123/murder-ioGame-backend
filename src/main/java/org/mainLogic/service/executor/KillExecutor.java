@@ -1,11 +1,8 @@
-package org.mainLogic.service.executors;
+package org.mainLogic.service.executor;
 
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.AgentService;
 import org.mainLogic.service.SocketManager;
-
-import java.net.Socket;
-import java.util.Optional;
 
 public class KillExecutor implements Executor {
     private static final byte CMD_TYPE = 3;
@@ -24,13 +21,7 @@ public class KillExecutor implements Executor {
         }
 
         final short userId = byteToInt(cmd[1], cmd[2]);
-        final Optional<Socket> socket = socketManager.get(userId);
-        //ask about Problem
-        if(socket.isEmpty()) {
-            return true;
-        }
-        //Todo: rework this, AgentEntity has own userid (short)
-        final AgentEntity agent = agentService.getAgent(socket);
+        final AgentEntity agent = agentService.getAgent(userId);
         final byte direction = cmd[3];
 
         agentService.kill(direction, agent.getUuid());

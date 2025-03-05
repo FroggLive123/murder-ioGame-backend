@@ -1,14 +1,15 @@
 package org.mainLogic.gameLoop;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mainLogic.dto.AgentDTO;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.AgentService;
-import org.mainLogic.service.CommandFormer;
 import org.mainLogic.service.CommandQueue;
-import org.mainLogic.service.executors.Executor;
+import org.mainLogic.service.executor.Executor;
 import org.mainLogic.service.Publisher;
 import org.mainLogic.service.message.AgentStatusMessage;
+import org.mainLogic.service.message.Message;
 
 import java.io.IOException;
 import java.util.*;
@@ -18,23 +19,26 @@ public class GameLoop implements Runnable {
     private final Publisher publisher;
     private final CommandQueue commandQueue;
     private final AgentService agentService;
-    private final List<Executor> executors;
-    private final CommandFormer commandFormer;
+    private final List<Executor> executorList;
     private final ObjectMapper objectMapper;
-
-    ArrayList<AgentEntity> listOfBots = new ArrayList<AgentEntity>();
-    int maxPlayers = 40;
-    long rebornTime = 180000;
+    private final short playersAmount;
+    private final long rebornTime;
 
 
-    public GameLoop (final AgentService agentService, final Publisher publisher, final CommandQueue commandQueue, final List<Executor> executors, final CommandFormer commandFormer,
+    public GameLoop (final short playersAmount,
+                     final long rebornTime,
+                     final AgentService agentService,
+                     final Publisher publisher,
+                     final CommandQueue commandQueue,
+                     final List<Executor> executorList,
                      final ObjectMapper objectMapper
     ) throws InterruptedException {
+        this.playersAmount = playersAmount;
+        this.rebornTime = rebornTime;
         this.agentService = agentService;
         this.publisher = publisher;
         this.commandQueue = commandQueue;
-        this.executors = executors;
-        this.commandFormer = commandFormer;
+        this.executorList = executorList;
         this.objectMapper = objectMapper;
     }
 
@@ -72,40 +76,20 @@ public class GameLoop implements Runnable {
         }
 
         AgentStatusMessage agentStatusMessage = new AgentStatusMessage("AgentStatus", agentDTOS);
-        byte[] message = objectMapper.writeValueAsBytes()
+        try {
+            return objectMapper.writeValueAsBytes(agentStatusMessage);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void process(byte[] next) {
-        for(Executor executor : executors){
+        for(Executor executor : executorList){
             if(executor.accept(next)) {
                 break;
             }
         }
     }
-
-    private void reborn(final Collection<AgentEntity> agents) {
-        for(AgentEntity agent: agents) {
-            if(agent.isAlive()){
-                continue;
-            }
-
-            if(System.currentTimeMillis() - agent.getTimeOfDead() >= rebornTime) {
-                agent.setAlive(true);
-            }
-        }
-    }
-
-    private void moveBots(final Collection<AgentEntity> agents) {
-        for(AgentEntity agent: agents) {
-            if(!agent.isBot() || !agent.isAlive()){
-                continue;
-            }
-            //There is place for problem with instant bot appearing and someone instant killing him
-            agentService.move(random(1, 8), random(1, 8), agent.getUuid());
-
-        }
-    }
-
 
 
     private int random(final int min ,final int max){

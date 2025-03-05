@@ -9,20 +9,20 @@ import java.util.UUID;
 
 public interface AgentService {
 
-    void move(final int x,final int y,final UUID uuid);
+    void move(final short x,final short y,final UUID uuid);
 
-    float[] getPosition(UUID uuid);
+    float[] getPosition(final UUID uuid);
 
     Collection<AgentEntity> getAll();
 
-    void die(UUID uuid);
+    void die(final UUID uuid);
 
     void rebornAll();
 
-    void addUser(String userSha1, Socket socket) throws Exception;
+    AgentEntity randomAgent(final short userid) throws Exception;
 
-    AgentEntity randomAgent(String hash) throws Exception;
+    List<UUID> kill(final int direction, final UUID uuid);
 
-    List<UUID> kill(int direction, UUID uuid);
+    AgentEntity getAgent(final short userid);
 }
 

@@ -10,20 +10,20 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-public class NotifyAgentSerice implements AgentService {
+public class NotifyAgentService implements AgentService {
 
     private final AgentService agentService;
     private final Publisher publisher;
     private final ObjectMapper objectMapper;
 
-    public NotifyAgentSerice(AgentService agentService, ObjectMapper objectMapper, Publisher publisher) {
+    public NotifyAgentService(final AgentService agentService,final ObjectMapper objectMapper,final Publisher publisher) {
         this.objectMapper = objectMapper;
         this.agentService = agentService;
         this.publisher = publisher;
     }
 
     @Override
-    public void move(int x, int y, UUID uuid) {
+    public void move(final short x,final short y,final UUID uuid) {
         agentService.move(x,y, uuid);
         }
 
@@ -42,23 +42,14 @@ public class NotifyAgentSerice implements AgentService {
         agentService.die(uuid);
     }
 
+
     @Override
-    public void rebornAll(UUID uuid) {
-        agentService.rebornAll(uuid);
+    public AgentEntity randomAgent(final short userid) throws Exception {
+        return agentService.randomAgent(userid);
     }
 
     @Override
-    public void addUser(String userSha1, Socket socket) throws Exception {
-        agentService.addUser(userSha1, socket);
-    }
-
-    @Override
-    public AgentEntity randomAgent(String hash) throws Exception {
-        return agentService.randomAgent(hash);
-    }
-
-    @Override
-    public List<UUID> kill(int direction, UUID uuid) {
+    public List<UUID> kill(final int direction,final UUID uuid) {
         final KillNotificationMessage killNotificationMessage = new KillNotificationMessage("slash", uuid, direction);
         try {
             publisher.broadcastAll(objectMapper.writeValueAsBytes(killNotificationMessage));
@@ -66,5 +57,15 @@ public class NotifyAgentSerice implements AgentService {
             throw new RuntimeException(e);
         }
         return agentService.kill(direction, uuid);
+    }
+
+    @Override
+    public void rebornAll() {
+        agentService.rebornAll();
+    }
+
+    @Override
+    public AgentEntity getAgent(final short userid) {
+        return agentService.getAgent(userid);
     }
 }

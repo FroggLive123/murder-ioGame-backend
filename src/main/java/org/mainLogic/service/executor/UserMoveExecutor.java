@@ -1,4 +1,4 @@
-package org.mainLogic.service.executors;
+package org.mainLogic.service.executor;
 
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.AgentService;
@@ -30,11 +30,10 @@ public class UserMoveExecutor implements Executor {
         }
 
         final short userId = byteToInt(cmd[1], cmd[2]);
-        final Optional<Socket> socket = socketManager.get(userId);
+        final AgentEntity agent = agentService.getAgent(userId);
 
-        if(socket.isPresent()) {
+        if(agent != null) {
             final byte direction = cmd[3];
-            final AgentEntity agent = agentService.getAgent(socket);
             //Canvas max size 10,000 x 10,000,datatype short -32,768 to 32,767
             short x = (short) agent.getX();
             short y = (short) agent.getY();

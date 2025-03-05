@@ -6,8 +6,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.message.ErrorMessage;
 import org.mainLogic.service.message.InitMessage;
-import org.mainLogic.service.message.KillMessage;
-import org.mainLogic.service.message.MessageType;
+import org.mainLogic.service.serializer.CommandSerializer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +19,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +34,7 @@ public class Server implements Runnable {
     private final ObjectMapper objectMapper;
     private final List<CommandSerializer> serializers;
     private final CommandQueue commandQueue;
+    private final IdManager idManager;
     // change to hashMap, key for hashMap is user hash
 
 
@@ -44,7 +43,9 @@ public class Server implements Runnable {
             final SocketManager socketManager,
             final Publisher publisher,
             final ObjectMapper objectMapper,
-            final List<CommandSerializer> serializers, CommandQueue commandQueue
+            final List<CommandSerializer> serializers,
+            final CommandQueue commandQueue,
+            final IdManager idManager
     ) throws IOException {
 
         this.agentService = agentService;
@@ -53,7 +54,7 @@ public class Server implements Runnable {
         this.objectMapper = objectMapper;
         this.serializers = serializers;
         this.commandQueue = commandQueue;
-
+        this.idManager = idManager;
     }
 
     @Override
@@ -132,26 +133,27 @@ public class Server implements Runnable {
                         e.printStackTrace();
                     }
 
-
-                    long timeOfInit =  Instant.now().toEpochMilli();
-                    String userSha1 = DigestUtils.sha1Hex(String.valueOf(timeOfInit));
+                    //TODO Server need to get information about userid to init user
                     //checking for exception with no any agents left
+                    long timeOfInit =  Instant.now().toEpochMilli();
+                    String userHash = DigestUtils.sha1Hex(String.valueOf(timeOfInit));
+                    short userid = idManager.add(socket);
                     try{
-                        AgentEntity userAgent = agentService.randomAgent(userSha1);
 
-                        InitMessage initCommand = new InitMessage("init", userSha1, userAgent.getUuid());
+                        AgentEntity userAgent = agentService.randomAgent(userid);
 
-                        publisher.send(userSha1 ,objectMapper.writeValueAsBytes(initCommand));
+                        InitMessage initCommand = new InitMessage("init", userHash, userAgent.getUuid());
+
+                        publisher.send(userid ,objectMapper.writeValueAsBytes(initCommand));
 
                         //Ask if delete of Map with Hash + socket from agentService needed
-                        agentService.addUser(userSha1, socket);
-                        socketManager.add(userSha1, socket);
+                        socketManager.add(userid, socket);
                         clients.add(socket);
 
                     } catch (Exception e) {
                         ErrorMessage errorMessage = new ErrorMessage("err", "ServerIsFull");
                         try {
-                            publisher.send(userSha1, objectMapper.writeValueAsBytes(errorMessage));
+                            publisher.send(userid, objectMapper.writeValueAsBytes(errorMessage));
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                             //Ask if here needed any additional logic like closing socket if there is no any agents left
@@ -343,12 +345,12 @@ public class Server implements Runnable {
         }
     }
 
-    private void onMessage(byte[] message, short userId) {
+    private void onMessage(final byte[] message, final short userId) {
         try {
-            Message message1 = objectMapper.readValue(message, Message.class);
+            final Message message1 = objectMapper.readValue(message, Message.class);
 
             for(CommandSerializer serializer: serializers) {
-                byte[] command = serializer.apply(message1, userId);
+                final byte[] command = serializer.apply(message1, userId);
                 if(command != null) {
                     commandQueue.put(command);
                 }

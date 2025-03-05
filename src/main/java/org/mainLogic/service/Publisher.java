@@ -13,9 +13,9 @@ public class Publisher {
         this.socketManager = socketManager;
     }
 
-    public void send(String hash, byte[] message) throws IOException {
+    public void send(short id, byte[] message) throws IOException {
 
-        Optional<Socket> socket = socketManager.get(hash);
+        Optional<Socket> socket = socketManager.get(id);
 
         if(socket.isEmpty()){
             throw new RuntimeException("Socket not found");

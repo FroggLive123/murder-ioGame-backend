@@ -9,7 +9,7 @@ public class Main {
         //Application has to create EntityArray
         //Application has to start new Tread to start GameLoop
 
-        Application application = new Application();
-        application.run(40);
+        Application application = new Application(120000L, (short) 30, (short) 100, (short) 100, (byte) 10);
+        application.run((short) 40);
     }
 }

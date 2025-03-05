@@ -1,4 +1,4 @@
-package org.mainLogic.service;
+package org.mainLogic.service.serializer;
 
 import java.util.Map;
 
