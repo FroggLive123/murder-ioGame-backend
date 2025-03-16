@@ -5,7 +5,6 @@ import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.message.KillNotificationMessage;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -52,7 +51,7 @@ public class NotifyAgentService implements AgentService {
     public List<UUID> kill(final int direction,final UUID uuid) {
         final KillNotificationMessage killNotificationMessage = new KillNotificationMessage("slash", uuid, direction);
         try {
-            publisher.broadcastAll(objectMapper.writeValueAsBytes(killNotificationMessage));
+            publisher.broadcast(objectMapper.writeValueAsBytes(killNotificationMessage));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

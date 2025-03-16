@@ -9,7 +9,6 @@ import org.mainLogic.service.CommandQueue;
 import org.mainLogic.service.executor.Executor;
 import org.mainLogic.service.Publisher;
 import org.mainLogic.service.message.AgentStatusMessage;
-import org.mainLogic.service.message.Message;
 
 import java.io.IOException;
 import java.util.*;
@@ -56,7 +55,7 @@ public class GameLoop implements Runnable {
 
             final byte[] agentStatusMessage = createAgentStatusMessage();
             try {
-                publisher.broadcastAll(agentStatusMessage);
+                publisher.broadcast(agentStatusMessage);
             } catch (IOException e) {
 //                throw new RuntimeException(e);
             }

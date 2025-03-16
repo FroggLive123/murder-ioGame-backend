@@ -34,7 +34,6 @@ public class Server implements Runnable {
     private final ObjectMapper objectMapper;
     private final List<CommandSerializer> serializers;
     private final CommandQueue commandQueue;
-    private final IdManager idManager;
     // change to hashMap, key for hashMap is user hash
 
 
@@ -44,8 +43,7 @@ public class Server implements Runnable {
             final Publisher publisher,
             final ObjectMapper objectMapper,
             final List<CommandSerializer> serializers,
-            final CommandQueue commandQueue,
-            final IdManager idManager
+            final CommandQueue commandQueue
     ) throws IOException {
 
         this.agentService = agentService;
@@ -54,7 +52,6 @@ public class Server implements Runnable {
         this.objectMapper = objectMapper;
         this.serializers = serializers;
         this.commandQueue = commandQueue;
-        this.idManager = idManager;
     }
 
     @Override
@@ -135,19 +132,16 @@ public class Server implements Runnable {
 
                     //TODO Server need to get information about userid to init user
                     //checking for exception with no any agents left
-                    long timeOfInit =  Instant.now().toEpochMilli();
-                    String userHash = DigestUtils.sha1Hex(String.valueOf(timeOfInit));
-                    short userid = idManager.add(socket);
+                    short userid = socketManager.add(socket);
                     try{
 
                         AgentEntity userAgent = agentService.randomAgent(userid);
 
-                        InitMessage initCommand = new InitMessage("init", userHash, userAgent.getUuid());
+                        InitMessage initCommand = new InitMessage("init", userAgent.getUuid());
 
                         publisher.send(userid ,objectMapper.writeValueAsBytes(initCommand));
 
                         //Ask if delete of Map with Hash + socket from agentService needed
-                        socketManager.add(userid, socket);
                         clients.add(socket);
 
                     } catch (Exception e) {
@@ -346,6 +340,12 @@ public class Server implements Runnable {
     }
 
     private void onMessage(final byte[] message, final short userId) {
+        if(message == null || message.length == 0) {
+            return;
+        }
+
+        System.out.println(new String(message));
+
         try {
             final Message message1 = objectMapper.readValue(message, Message.class);
 

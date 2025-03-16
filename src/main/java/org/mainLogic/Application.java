@@ -64,7 +64,6 @@ public class Application {
         final AgentRepository agentRepository = new AgentRepository(agentList);
         final DefaultAgentService defaultAgentService = new DefaultAgentService(agentRepository);
         final NotifyAgentService notifyAgentService = new NotifyAgentService(defaultAgentService, objectMapper, publisher);
-        final IdManager idManager = new IdManager(playersAmount);
 
         List<Executor> executorList = new ArrayList<>();
 
@@ -88,7 +87,7 @@ public class Application {
         new Thread(gameLoop).start();
 
         //Start server
-        Server server = new Server(notifyAgentService, socketManager, publisher, objectMapper, serializerList,  commandQueue, idManager);
+        Server server = new Server(notifyAgentService, socketManager, publisher, objectMapper, serializerList,  commandQueue);
         server.run();
 
         //start game loop
