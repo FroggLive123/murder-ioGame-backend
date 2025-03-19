@@ -22,13 +22,13 @@ public class NotifyAgentService implements AgentService {
     }
 
     @Override
-    public void move(final short x,final short y,final UUID uuid) {
-        agentService.move(x,y, uuid);
+    public void move(final short x,final short y,final int id) {
+        agentService.move(x,y, id);
         }
 
     @Override
-    public float[] getPosition(UUID uuid) {
-        return agentService.getPosition(uuid);
+    public float[] getPosition(int id) {
+        return agentService.getPosition(id);
     }
 
     @Override
@@ -37,8 +37,8 @@ public class NotifyAgentService implements AgentService {
     }
 
     @Override
-    public void die(UUID uuid) {
-        agentService.die(uuid);
+    public void die(int id) {
+        agentService.die(id);
     }
 
 
@@ -48,14 +48,14 @@ public class NotifyAgentService implements AgentService {
     }
 
     @Override
-    public List<UUID> kill(final int direction,final UUID uuid) {
-        final KillNotificationMessage killNotificationMessage = new KillNotificationMessage("slash", uuid, direction);
+    public List<Integer> kill(final int direction,final short id) {
+        final KillNotificationMessage killNotificationMessage = new KillNotificationMessage("slash", id, direction);
         try {
             publisher.broadcast(objectMapper.writeValueAsBytes(killNotificationMessage));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return agentService.kill(direction, uuid);
+        return agentService.kill(direction, id);
     }
 
     @Override

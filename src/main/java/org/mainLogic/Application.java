@@ -1,6 +1,7 @@
 package org.mainLogic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.mainLogic.ai.BotAi;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.gameLoop.GameLoop;
 import org.mainLogic.repository.AgentRepository;
@@ -14,6 +15,7 @@ import org.mainLogic.service.serializer.MoveCommandSerializer;
 import javax.smartcardio.CommandAPDU;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 public class Application {
@@ -48,12 +50,11 @@ public class Application {
         ArrayList<AgentEntity> agentList = new ArrayList<>();
 
         for(int i = 0; i < playersAmount; i++) {
-            UUID uuid = UUID.randomUUID();
 
             short x = (short) (Math.random() * xMax);
             short y = (short) (Math.random() * yMax);
 
-            AgentEntity agent = new AgentEntity(uuid, x, y);
+            AgentEntity agent = new AgentEntity(i, x, y);
             agentList.add(agent);
         }
 
@@ -64,10 +65,11 @@ public class Application {
         final AgentRepository agentRepository = new AgentRepository(agentList);
         final DefaultAgentService defaultAgentService = new DefaultAgentService(agentRepository);
         final NotifyAgentService notifyAgentService = new NotifyAgentService(defaultAgentService, objectMapper, publisher);
+        final BotAi botAi = new BotAi(defaultAgentService);
 
         List<Executor> executorList = new ArrayList<>();
 
-        BotMoveExecutor botMoveExecutor = new BotMoveExecutor(defaultAgentService, step, xMax, yMax);
+        BotMoveExecutor botMoveExecutor = new BotMoveExecutor(defaultAgentService,botAi , step, xMax, yMax);
         KillExecutor killExecutor = new KillExecutor(notifyAgentService, socketManager);
         RebornExecutor rebornExecutor = new RebornExecutor(defaultAgentService);
         UserMoveExecutor userMoveExecutor = new UserMoveExecutor(socketManager, defaultAgentService, xMax, yMax, step);

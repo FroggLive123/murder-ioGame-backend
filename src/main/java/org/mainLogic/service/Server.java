@@ -2,7 +2,6 @@ package org.mainLogic.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.xml.bind.DatatypeConverter;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.message.ErrorMessage;
 import org.mainLogic.service.message.InitMessage;
@@ -17,7 +16,6 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.Instant;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -137,7 +135,7 @@ public class Server implements Runnable {
 
                         AgentEntity userAgent = agentService.randomAgent(userid);
 
-                        InitMessage initCommand = new InitMessage("init", userAgent.getUuid());
+                        InitMessage initCommand = new InitMessage("init", userAgent.getId());
 
                         publisher.send(userid ,objectMapper.writeValueAsBytes(initCommand));
 

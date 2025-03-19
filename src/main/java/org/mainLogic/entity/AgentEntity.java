@@ -1,18 +1,16 @@
 package org.mainLogic.entity;
 
-import java.util.UUID;
-
 public class AgentEntity {
 
-    private final UUID uuid;
+    private final int id;
     private int x;
     private int y;
     private Short userid;
     private boolean isAlive  = true;
     private long timeOfDead ;
 
-    public AgentEntity(final UUID uuid,final int x,final int y) throws InterruptedException {
-        this.uuid = uuid;
+    public AgentEntity(final int id,final int x,final int y) throws InterruptedException {
+        this.id = id;
 
         this.x = x;
         this.y = y;
@@ -42,8 +40,8 @@ public class AgentEntity {
         this.timeOfDead = timeOfDead;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public int getId() {
+        return id;
     }
 
     public int getX() {

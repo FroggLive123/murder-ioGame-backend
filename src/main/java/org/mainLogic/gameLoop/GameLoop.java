@@ -1,16 +1,19 @@
 package org.mainLogic.gameLoop;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.mainLogic.dto.AgentDTO;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.AgentService;
 import org.mainLogic.service.CommandQueue;
 import org.mainLogic.service.executor.Executor;
 import org.mainLogic.service.Publisher;
-import org.mainLogic.service.message.AgentStatusMessage;
+import org.mainLogic.service.serializer.BotMoveCommandSerializer;
+import org.springframework.cache.interceptor.CacheAspectSupport;
+import org.util.CustomOutputStream;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.*;
 
 public class GameLoop implements Runnable {
@@ -43,7 +46,16 @@ public class GameLoop implements Runnable {
 
     @Override
     public void run() {
+        int delta = 0;
+
+        byte[] buffer = new byte[4000];
+
         while (true) {
+            delta++;
+
+            if(delta == 10_000) {
+                delta = 0;
+            }
 
             for(int i = 0; i < 100; i++){
                 if(!commandQueue.hasNext()){
@@ -53,32 +65,43 @@ public class GameLoop implements Runnable {
                 process(commandQueue.next());
             }
 
-            final byte[] agentStatusMessage = createAgentStatusMessage();
-            try {
-                publisher.broadcast(agentStatusMessage);
-            } catch (IOException e) {
-//                throw new RuntimeException(e);
+            if(delta == 900) {
+                Arrays.fill(buffer, (byte) 0);
             }
 
+            if(delta == 1_000) {
+                moveBots();
+
+                try {
+                    createAgentStatusMessage(buffer);
+                    publisher.broadcast(buffer);
+                } catch (IOException e) {
+//                throw new RuntimeException(e);
+                }
+            }
         }
     }
 
-    private byte[] createAgentStatusMessage() {
+    private void moveBots() {
+        final byte[] command = BotMoveCommandSerializer.apply("botMove");
+        commandQueue.put(command);
+    }
+
+    private void createAgentStatusMessage(byte[] buff) throws IOException {
+        CustomOutputStream writer = new CustomOutputStream(buff);
+
         final Collection<AgentEntity> agents = agentService.getAll();
-        List<AgentDTO> agentDTOS = new ArrayList<>();
+        //Todo del agentDTO
 
         for(AgentEntity agent: agents){
-            int[] possition = {agent.getX(), agent.getY()};
-            AgentDTO agentDTO = new AgentDTO(agent.getUuid(), possition, agent.isAlive());
-
-            agentDTOS.add(agentDTO);
-        }
-
-        AgentStatusMessage agentStatusMessage = new AgentStatusMessage("AgentStatus", agentDTOS);
-        try {
-            return objectMapper.writeValueAsBytes(agentStatusMessage);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            writer.write(String.valueOf(agent.getId()));
+            writer.write(":");
+            writer.write(String.valueOf(agent.isAlive()));
+            writer.write(":");
+            writer.write(String.valueOf(agent.getX()));
+            writer.write(",");
+            writer.write(String.valueOf(agent.getY()));
+            writer.write(";");
         }
     }
 

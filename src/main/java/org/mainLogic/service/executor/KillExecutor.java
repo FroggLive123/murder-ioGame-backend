@@ -24,7 +24,7 @@ public class KillExecutor implements Executor {
         final AgentEntity agent = agentService.getAgent(userId);
         final byte direction = cmd[3];
 
-        agentService.kill(direction, agent.getUuid());
+        agentService.kill(direction,(short) agent.getId());
 
         return true;
     }

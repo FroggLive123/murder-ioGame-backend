@@ -4,9 +4,6 @@ import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.service.AgentService;
 import org.mainLogic.service.SocketManager;
 
-import java.net.Socket;
-import java.util.Optional;
-
 public class UserMoveExecutor implements Executor {
     private final byte step;
     private static final byte CMD_TYPE = 2;
@@ -72,7 +69,7 @@ public class UserMoveExecutor implements Executor {
             y = (short) Math.max(0, Math.min(y, yMax));
 
 
-            agentService.move(x, y, agent.getUuid());
+            agentService.move(x, y, agent.getId());
         }
 
 

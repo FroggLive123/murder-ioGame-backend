@@ -1,5 +1,7 @@
 package org.mainLogic.service;
 
+import org.mainLogic.entity.AgentEntity;
+
 import java.net.Socket;
 import java.util.*;
 

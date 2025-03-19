@@ -5,6 +5,6 @@ import java.util.UUID;
 
 public record InitMessage(
         String dataType,
-        UUID uuid
+        int id
 ) implements Message {
 }

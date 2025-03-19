@@ -9,19 +9,20 @@ import java.util.UUID;
 
 public interface AgentService {
 
-    void move(final short x,final short y,final UUID uuid);
+    void move(final short x,final short y,final int id);
 
-    float[] getPosition(final UUID uuid);
+    float[] getPosition(final int id);
+    //Todo change
 
     Collection<AgentEntity> getAll();
 
-    void die(final UUID uuid);
+    void die(final int id);
 
     void rebornAll();
 
     AgentEntity randomAgent(final short userid) throws Exception;
 
-    List<UUID> kill(final int direction, final UUID uuid);
+    List<Integer> kill(final int direction, final short userid);
 
     AgentEntity getAgent(final short userid);
 }

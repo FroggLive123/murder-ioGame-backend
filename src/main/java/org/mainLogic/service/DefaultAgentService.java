@@ -3,7 +3,6 @@ package org.mainLogic.service;
 import org.mainLogic.entity.AgentEntity;
 import org.mainLogic.repository.AgentRepository;
 
-import java.net.Socket;
 import java.rmi.NoSuchObjectException;
 import java.time.Instant;
 import java.util.*;
@@ -16,8 +15,8 @@ public class DefaultAgentService implements  AgentService {
     }
 
     @Override
-    public void move(final short x, final short y, final UUID uuid) {
-        AgentEntity agent = agentRepository.getAgent(uuid);
+    public void move(final short x, final short y, final int id) {
+        AgentEntity agent = agentRepository.getAgent(id);
         if (!agent.isAlive()) {
             throw new IllegalStateException("Agent is not alive");
         }
@@ -27,8 +26,8 @@ public class DefaultAgentService implements  AgentService {
     }
 
     @Override
-    public float[] getPosition(UUID uuid) {
-        AgentEntity agent = agentRepository.getAgent(uuid);
+    public float[] getPosition(int id) {
+        AgentEntity agent = agentRepository.getAgent(id);
 
         float[] position = new float[2];
         position[0] = (float) agent.getX();
@@ -37,8 +36,8 @@ public class DefaultAgentService implements  AgentService {
     }
 
     @Override
-    public void die(UUID uuid) {
-        AgentEntity agent = agentRepository.getAgent(uuid);
+    public void die(int id) {
+        AgentEntity agent = agentRepository.getAgent(id);
 
         long timeOfDead = Instant.now().toEpochMilli();
         agent.setAlive(false);
@@ -75,8 +74,8 @@ public class DefaultAgentService implements  AgentService {
     }
 
     @Override
-    public List<UUID> kill(final int direction,final UUID userUuid) {
-        final AgentEntity user = agentRepository.getAgent(userUuid);
+    public List<Integer> kill(final int direction,final short userid) {
+        final AgentEntity user = agentRepository.getAgent(userid);
 
         if(direction > 8 || direction < 1) {
             throw new IllegalArgumentException("direction must be between 0 and 8");
@@ -111,23 +110,23 @@ public class DefaultAgentService implements  AgentService {
         return user;
     }
 
-    public List<UUID> getAllUUID() {
+    public List<Integer> getAllUUID() {
         final Collection<AgentEntity> agents = agentRepository.getAll();
 
-        List<UUID> uuids = new ArrayList<>();
+        List<Integer> uuids = new ArrayList<>();
 
         for (AgentEntity agent : agents) {
-            uuids.add(agent.getUuid());
+            uuids.add(agent.getId());
         }
 
         return uuids;
     }
 
-    private HashMap<UUID, AgentEntity> createAgentHashMap(Collection<AgentEntity> agents) {
-        HashMap<UUID, AgentEntity> map = new HashMap<>();
+    private HashMap<Integer, AgentEntity> createAgentHashMap(Collection<AgentEntity> agents) {
+        HashMap<Integer, AgentEntity> map = new HashMap<>();
 
         for (AgentEntity agent : agents) {
-            map.put(agent.getUuid(), agent);
+            map.put(agent.getId(), agent);
         }
 
         return map;

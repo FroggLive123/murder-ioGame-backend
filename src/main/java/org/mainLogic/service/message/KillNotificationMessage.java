@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public record KillNotificationMessage(
         String datatype,
-        UUID uuid,
+        int id,
         int direction
 ) implements Message {
 }
