@@ -9,10 +9,25 @@
     <title>WebSocket Client</title>
 
     <button id="btnMove">Move</button>
+    <canvas id="lala"></canvas>
 
     <script type="text/javascript">
 
         var wsocket;
+
+        window.buffer = {
+            current: "",
+            real: "",
+            next: function () {
+                this.current = this.real;
+            }
+        }
+
+        window.agents = [];
+
+        for(let i = 0; i < 50; i++) {
+            window.agents.push({x:0, y:0})
+        }
 
         function connect() {
 
@@ -29,7 +44,8 @@
         }
 
         function onmessage(event) {
-            // console.log("Data received: " + event.data);
+            buffer.real = event.data;
+            console.log(event.data);
         }
 
         function onclose(e) {
@@ -49,7 +65,46 @@
 
 
     </script>
+    <script>
+        const canvas = document.getElementById("lala");
+        canvas.width = 1024;
+        canvas.height = 768;
+        const ctx = canvas.getContext("2d");
 
+        function frame() {
+            draw();
+            requestAnimationFrame(frame);
+        }
+
+        frame();
+
+        function draw() {
+            ctx.clearRect(0 ,0 ,canvas.width ,canvas.height);
+
+            const message =  buffer.current;
+
+            if(message == "") {
+                return
+            }
+
+            for(const line of message.split(";")) {
+                const arr = line.split(":");
+                const id = Number(arr[0]);
+                const alive = Boolean(arr[1]);
+                const coordinates = (arr[2].split(","));
+                const agent = window.agents[id];
+
+                agent.x = Number(coordinates[0]);
+                agent.y = Number(coordinates[1]);
+
+                ctx.fillStyle = "#000000";
+                ctx.fillRect(agent.x, agent.y, 20, 20);
+                ctx.fill();
+            }
+
+            buffer.next();
+        }
+    </script>
 </head>
 
 <body>
