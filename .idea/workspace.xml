@@ -4,24 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="Changes sync 05.03.25">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/serializer/BotMoveCommandSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/entity/AgentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/entity/AgentEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/repository/AgentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/repository/AgentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/AgentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/AgentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/DefaultAgentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/DefaultAgentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/NotifyAgentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/SocketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/SocketManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executor/BotMoveExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executor/BotMoveExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executor/KillExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executor/KillExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executor/UserMoveExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/executor/UserMoveExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/InitMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/InitMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/KillNotificationMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/message/KillNotificationMessage.java" afterDir="false" />
-    </list>
+    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="Optimization 19.03.25" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="websocket-creation" />
+        <entry key="$PROJECT_DIR$" value="Ai-improvement" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -83,7 +66,7 @@
     "Application.org.mainLogic.Main.executor": "Run",
     "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Ai-improvement",
+    "git-widget-placeholder": "websocket-creation",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/vitalii/IdeaProjects/Vitalii Yakovenko15.11",
     "node.js.detected.package.eslint": "true",
@@ -172,11 +155,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.org.mainLogic.Main" />
-        <item itemvalue="Application.Server" />
         <item itemvalue="Application.WebSocketHandler" />
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.src.main.java.org.Test.Main" />
+        <item itemvalue="Application.Server" />
+        <item itemvalue="Application.org.mainLogic.Main" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -250,7 +233,7 @@
       <workItem from="1742379008367" duration="5719000" />
       <workItem from="1742385214203" duration="601000" />
       <workItem from="1742407252098" duration="94000" />
-      <workItem from="1742410790509" duration="5959000" />
+      <workItem from="1742410790509" duration="6390000" />
     </task>
     <task id="LOCAL-00001" summary="Project initialization">
       <option name="closed" value="true" />
@@ -348,7 +331,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741199955753</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Optimization 19.03.25">
+      <option name="closed" value="true" />
+      <created>1742417137475</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1742417137475</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -377,7 +368,8 @@
     <MESSAGE value="Changes sync 18.02.25" />
     <MESSAGE value="Changes sync 19.02.25" />
     <MESSAGE value="Changes sync 05.03.25" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes sync 05.03.25" />
+    <MESSAGE value="Optimization 19.03.25" />
+    <option name="LAST_COMMIT_MESSAGE" value="Optimization 19.03.25" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -390,17 +382,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/org/mainLogic/ai/BotAi.java</url>
           <line>57</line>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java</url>
-          <line>104</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <condition disabled="true" expression="agent.getId() == 5" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java</url>
-          <line>96</line>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

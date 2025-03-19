@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<!-- saved from url=(0039)file:///home/dukhin/Downloads/idex.html -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+    <title>WebSocket Client</title>
+
+    <button id="btnMove">Move</button>
+
+    <script type="text/javascript">
+
+        var wsocket;
+
+        function connect() {
+
+
+            wsocket = new WebSocket("ws://localhost:8000");
+            wsocket.onopen = onopen;
+            wsocket.onmessage = onmessage;
+            wsocket.onclose = onclose;
+
+        }
+
+        function onopen() {
+            console.log("Connected!");
+        }
+
+        function onmessage(event) {
+            // console.log("Data received: " + event.data);
+        }
+
+        function onclose(e) {
+            console.log("Connection closed.");
+        }
+
+        window.addEventListener("load", connect, false);
+
+        var btnMove = document.getElementById("btnMove");
+        btnMove.addEventListener("click", function (){
+            console.log("Move command")
+            wsocket.send(JSON.stringify({
+                datatype: "move",
+                direction: 1
+            }))
+        });
+
+
+    </script>
+
+</head>
+
+<body>
+
+
+</body>
+</html>
