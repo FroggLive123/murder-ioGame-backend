@@ -119,14 +119,6 @@ public class Server implements Runnable {
                         throw new RuntimeException(e);
                     }
 
-                    try {
-                        outputStream.write(encode("Hello from Server!"));
-                        outputStream.flush();
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
 
                     //TODO Server need to get information about userid to init user
                     //checking for exception with no any agents left

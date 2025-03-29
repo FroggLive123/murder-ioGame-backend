@@ -7,21 +7,44 @@
 
 
     <title>WebSocket Client</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        canvas {
+            top: 0;
+            left: 0;
+            position: absolute;
+        }
+    </style>
+</head>
 
-    <button id="btnMove">Move</button>
+<body>
     <canvas id="lala"></canvas>
 
     <script type="text/javascript">
+        let testMessage = "0:true:97,70;1:true:23,90";
+        let init = false;
+        const user = {
+            agent: null
+        };
 
-        var wsocket;
+        let wsocket;
 
         window.buffer = {
             current: "",
             real: "",
             next: function () {
                 this.current = this.real;
+                this.real = "";
             }
         }
+
+        //test code
+        // buffer.real = testMessage;
+        // buffer.next();
+
 
         window.agents = [];
 
@@ -44,8 +67,26 @@
         }
 
         function onmessage(event) {
-            buffer.real = event.data;
-            console.log(event.data);
+            try{
+                let x = event.data;
+                const i = x.lastIndexOf("}") + 1;
+                x = x.substring(0, i);
+
+                const msg = JSON.parse(x);
+                if (msg.datatype === "state") {
+                    buffer.real = msg.data;
+                    return
+                }
+                if (msg.datatype === "init") {
+                    user.agent = Number(msg.id);
+                    return
+                }
+
+                console.warn("unsupported datatype", msg.datatype)
+            } catch (e) {
+                console.error(e);
+                console.log(event.data);
+            }
         }
 
         function onclose(e) {
@@ -54,41 +95,65 @@
 
         window.addEventListener("load", connect, false);
 
-        var btnMove = document.getElementById("btnMove");
-        btnMove.addEventListener("click", function (){
-            console.log("Move command")
+        function move(direction) {
             wsocket.send(JSON.stringify({
                 datatype: "move",
-                direction: 1
+                direction: direction
             }))
-        });
+        }
 
-
+        window.addEventListener("keydown", function (event) {
+            switch (event.key) {
+                case "w":
+                    move(1);
+                    break
+                case "d":
+                    move(3);
+                    break
+                case "a":
+                    move(7);
+                    break
+                case "s":
+                    move(5);
+                    break
+            }
+            //Todo make server move user on message
+        })
     </script>
     <script>
         const canvas = document.getElementById("lala");
-        canvas.width = 1024;
-        canvas.height = 768;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
         const ctx = canvas.getContext("2d");
 
         function frame() {
             draw();
             requestAnimationFrame(frame);
         }
-
         frame();
 
         function draw() {
             ctx.clearRect(0 ,0 ,canvas.width ,canvas.height);
+            ctx.beginPath();
 
+            buffer.next();
             const message =  buffer.current;
 
             if(message == "") {
-                return
+                console.log("empty")
+
+                return;
             }
 
             for(const line of message.split(";")) {
+                console.log(line);
+                if(line.indexOf(":") === -1) {
+                    console.log("Continue")
+                    continue
+                }
                 const arr = line.split(":");
+                console.log(arr);
                 const id = Number(arr[0]);
                 const alive = Boolean(arr[1]);
                 const coordinates = (arr[2].split(","));
@@ -98,17 +163,18 @@
                 agent.y = Number(coordinates[1]);
 
                 ctx.fillStyle = "#000000";
-                ctx.fillRect(agent.x, agent.y, 20, 20);
+                if(id == user.agent) {
+                    ctx.fillStyle = "#fd0101";
+                }
+
+                ctx.fillRect(agent.x, agent.y, 5, 5);
                 ctx.fill();
             }
-
-            buffer.next();
         }
+        //Todo make agents move in the specific aria of the canvas
+        //Todo make coordinates float + make agents slower
+        //Todo make status message have only 10 agents
+        //Todo *make kill command (use last move direction)
     </script>
-</head>
-
-<body>
-
-
 </body>
 </html>

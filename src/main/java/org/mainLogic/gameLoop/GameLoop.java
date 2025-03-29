@@ -91,7 +91,9 @@ public class GameLoop implements Runnable {
         CustomOutputStream writer = new CustomOutputStream(buff);
 
         final Collection<AgentEntity> agents = agentService.getAll();
-        //Todo del agentDTO
+
+        writer.writeByte((byte) '{');
+        writer.write("\"datatype\":\"state\",\"data\":\"");
 
         for(AgentEntity agent: agents){
             writer.write(String.valueOf(agent.getId()));
@@ -103,6 +105,9 @@ public class GameLoop implements Runnable {
             writer.write(String.valueOf(agent.getY()));
             writer.write(";");
         }
+
+        writer.writeByte((byte) '"');
+        writer.writeByte((byte) '}');
     }
 
     private void process(byte[] next) {
