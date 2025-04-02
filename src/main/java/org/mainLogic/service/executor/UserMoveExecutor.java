@@ -7,13 +7,11 @@ import org.mainLogic.service.SocketManager;
 public class UserMoveExecutor implements Executor {
     private final byte step;
     private static final byte CMD_TYPE = 2;
-    private final SocketManager socketManager;
     private final AgentService agentService;
     private final short xMax;
     private final short yMax;
 
-    public UserMoveExecutor(final SocketManager socketManager, final AgentService agentService,final short xMax,final short yMax, final byte step) {
-        this.socketManager = socketManager;
+    public UserMoveExecutor(final AgentService agentService,final short xMax,final short yMax, final byte step) {
         this.agentService = agentService;
         this.xMax = xMax;
         this.yMax = yMax;
@@ -37,7 +35,7 @@ public class UserMoveExecutor implements Executor {
 
             switch (direction) {
                 case 1:
-                    y -= step;
+                    y = (short) (y - step);
                     break;
                 case 2:
                     y -= (short) (0.3 * step);

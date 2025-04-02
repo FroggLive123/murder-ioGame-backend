@@ -12,6 +12,7 @@ public class MoveCommandSerializer implements CommandSerializer {
         if (!message.get("datatype").equals(DATA_TYPE)) {
             return null;
         }
+        System.out.println(message.get("datatype").getClass().getName());
 
         byte[] command = new byte[BYTE_SIZE];
 
@@ -19,7 +20,8 @@ public class MoveCommandSerializer implements CommandSerializer {
         byte[] x = LittleEndian.toByteArray(userId);
         command[1] = x[0];
         command[2] = x[1];
-        command[3] = (byte) message.get("direction");
+        int direction = (Integer) message.get("direction");
+        command[3] = (byte) direction;
 
         return command;
     }

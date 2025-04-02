@@ -72,12 +72,14 @@ public class Application {
         BotMoveExecutor botMoveExecutor = new BotMoveExecutor(defaultAgentService,botAi , step, xMax, yMax);
         KillExecutor killExecutor = new KillExecutor(notifyAgentService, socketManager);
         RebornExecutor rebornExecutor = new RebornExecutor(defaultAgentService);
-        UserMoveExecutor userMoveExecutor = new UserMoveExecutor(socketManager, defaultAgentService, xMax, yMax, step);
+        UserMoveExecutor userMoveExecutor = new UserMoveExecutor(defaultAgentService, xMax, yMax, step);
 
         List<CommandSerializer> serializerList = new ArrayList<>();
 
         KillCommandSerializer killCommandSerializer = new KillCommandSerializer();
         MoveCommandSerializer moveCommandSerializer = new MoveCommandSerializer();
+        serializerList.add(killCommandSerializer);
+        serializerList.add(moveCommandSerializer);
 
         executorList.add(botMoveExecutor);
         executorList.add(killExecutor);

@@ -1,12 +1,15 @@
 package org.mainLogic.service;
 
 import org.mainLogic.entity.AgentEntity;
+import org.mainLogic.entity.User;
 
 import java.net.Socket;
 import java.util.*;
 
 public class SocketManager {
     private final Map<Short, Socket> idSocket = new HashMap<>();
+    //temporal adding of users into SocketManager, need to find better place for them
+    private final List<User> userList = new ArrayList<>();
     private final short playersAmount;
     private static short nextid = 0;
 
@@ -33,11 +36,18 @@ public class SocketManager {
         nextid++;
         idSocket.put(id, socket);
 
+        //User added
+        User user = new User(id);
+        user.updateTimeOfMeasuring();
+        userList.add(user);
+
         return id;
     }
 
     public void remove(final short id) {
         idSocket.remove(id);
+        //User deleted
+        userList.remove(id);
     }
 
     public Optional<Socket> get(final short id) {

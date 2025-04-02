@@ -54,6 +54,7 @@ public class GameLoop implements Runnable {
             delta++;
 
             if(delta == 10_000) {
+                moveBots();
                 delta = 0;
             }
 
@@ -69,8 +70,10 @@ public class GameLoop implements Runnable {
                 Arrays.fill(buffer, (byte) 0);
             }
 
+            if(delta == 10_000) {
+            }
+
             if(delta == 1_000) {
-                moveBots();
 
                 try {
                     createAgentStatusMessage(buffer);

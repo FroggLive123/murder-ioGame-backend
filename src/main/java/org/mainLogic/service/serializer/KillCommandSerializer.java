@@ -16,7 +16,7 @@ public class KillCommandSerializer implements CommandSerializer {
 
         byte[] command = new byte[BYTE_SIZE];
 
-        command[0] = 2;
+        command[0] = 3;
         byte[] x = LittleEndian.toByteArray(userId);
         command[1] = x[0];
         command[2] = x[1];

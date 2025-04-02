@@ -334,7 +334,7 @@ public class Server implements Runnable {
             return;
         }
 
-        System.out.println(new String(message));
+        System.out.println("moveeeeee");
 
         try {
             final Message message1 = objectMapper.readValue(message, Message.class);

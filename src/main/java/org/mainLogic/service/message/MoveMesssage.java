@@ -1,7 +1,7 @@
 package org.mainLogic.service.message;
 
 public record MoveMesssage(
-        String dataType,
+        String datatype,
         int direction
 ) implements Message {
 }
