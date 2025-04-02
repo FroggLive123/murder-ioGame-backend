@@ -37,7 +37,7 @@ public class SocketManager {
         idSocket.put(id, socket);
 
         //User added
-        User user = new User(id);
+        User user = new User();
         user.updateTimeOfMeasuring();
         userList.add(user);
 
@@ -52,6 +52,10 @@ public class SocketManager {
 
     public Optional<Socket> get(final short id) {
         return Optional.ofNullable(idSocket.get(id));
+    }
+
+    public User getUser(final short id) {
+        return userList.get(id);
     }
 
     public short getId(final Socket socket) {

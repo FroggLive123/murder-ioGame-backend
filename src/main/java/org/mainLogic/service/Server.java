@@ -3,6 +3,7 @@ package org.mainLogic.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.xml.bind.DatatypeConverter;
 import org.mainLogic.entity.AgentEntity;
+import org.mainLogic.entity.User;
 import org.mainLogic.service.message.ErrorMessage;
 import org.mainLogic.service.message.InitMessage;
 import org.mainLogic.service.serializer.CommandSerializer;
@@ -212,7 +213,17 @@ public class Server implements Runnable {
                     message[j] = (byte) (b[i] ^ masks[j % 4]);
                 }
 
-                onMessage(message, socketManager.getId(client));
+                //Anti ddos system
+                short userId = socketManager.getId(client);
+                User user = socketManager.getUser(userId);
+
+                if(user.getTimeOfMeasuring() - System.currentTimeMillis() > 1_000) {
+                    user.updateTimeOfMeasuring();
+                    user.resetCounter();
+                }
+                if(user.getRPC() < 11) {
+                    onMessage(message, userId);
+                }
 
                 for(int k = 0; k < b.length ; k++) {
                     b[k] = 0;
@@ -333,8 +344,6 @@ public class Server implements Runnable {
         if(message == null || message.length == 0) {
             return;
         }
-
-        System.out.println("moveeeeee");
 
         try {
             final Message message1 = objectMapper.readValue(message, Message.class);

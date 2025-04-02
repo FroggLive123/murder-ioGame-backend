@@ -24,7 +24,7 @@
     <canvas id="lala"></canvas>
 
     <script type="text/javascript">
-        let testMessage = "0:true:97,70;1:true:23,90";
+        let testMessage = "0:true:0,0;1:true:0,12000;2:true:6000,0;3:true:6000,12000;";
         let init = false;
         const user = {
             agent: null
@@ -41,7 +41,7 @@
             }
         }
 
-        //test code
+        // test code
         // buffer.real = testMessage;
         // buffer.next();
 
@@ -103,8 +103,7 @@
         }
 
         window.addEventListener("keydown", function (event) {
-            setTimeout(() => {
-                switch (event.key) {
+            switch (event.key) {
                     case "w":
                         move(1);
                         break
@@ -118,7 +117,6 @@
                         move(5);
                         break
                 }
-            }, 1000);
             //Todo make server move user on message
         })
     </script>
@@ -126,6 +124,12 @@
         const canvas = document.getElementById("lala");
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        const playingField = {
+            width: canvas.width * 0.6,
+            height: canvas.height * 0.6,
+            x: (canvas.width - canvas.width * 0.6 ) / 2,
+            y: (canvas.height - canvas.height * 0.6 ) / 2,
+        }
 
         const ctx = canvas.getContext("2d");
 
@@ -141,7 +145,7 @@
 
             //creates rectangle (boarders) for agents
             ctx.strokeStyle = "orange";
-            ctx.strokeRect(199, 199, 1_201, 601);
+            ctx.strokeRect(playingField.x + 1, playingField.y + 1, playingField.width, playingField.height);
 
             buffer.next();
             const message =  buffer.current;
@@ -153,20 +157,18 @@
             }
 
             for(const line of message.split(";")) {
-                console.log(line);
                 if(line.indexOf(":") === -1) {
                     console.log("Continue")
                     continue
                 }
                 const arr = line.split(":");
-                console.log(arr);
                 const id = Number(arr[0]);
                 const alive = Boolean(arr[1]);
                 const coordinates = (arr[2].split(","));
                 const agent = window.agents[id];
 
-                agent.x = Number((coordinates[0]) / 10) + 200;
-                agent.y = Number((coordinates[1]) / 10) + 200;
+                agent.x = Number(((coordinates[0]) / (canvas.width * 0.02077)) + playingField.x);
+                agent.y = Number(((coordinates[1]) / (canvas.height * 0.069)) + playingField.y);
 
                 ctx.fillStyle = "#000000";
                 if(id == user.agent) {
