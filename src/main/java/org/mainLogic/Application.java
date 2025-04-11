@@ -95,6 +95,8 @@ public class Application {
         server.run();
 
         //start game loop
+
+        //Todo improve AI to make bots move more stable
     }
 }
 

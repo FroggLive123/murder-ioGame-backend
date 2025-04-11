@@ -4,13 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="Changes sync 02.04.25">
+    <list default="true" id="8baa3576-22ff-4afd-8a59-c05a017e303d" name="Changes" comment="User moving 02.04.25">
+      <change afterPath="$PROJECT_DIR$/front/wsSharedWorker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_03_2025,_13_08_[Changes]1/AgentDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_03_2025,_13_08_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_03_2025__13_08__Changes_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/gameLoop/GameLoop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/SocketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mainLogic/service/SocketManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/test.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/util/CustomOutputStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/util/CustomOutputStream.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/front/test.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +39,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Ai-improvement" />
+        <entry key="$PROJECT_DIR$" value="websocket-creation" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -45,7 +53,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/FroggLive123/murder-ioGame-backend.git&quot;,
-    &quot;accountId&quot;: &quot;564bc46f-fc40-4dbe-8bef-8e74bad4af78&quot;
+    &quot;accountId&quot;: &quot;594cf797-12a0-4072-9666-1929bae0dfbb&quot;
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
@@ -73,7 +81,7 @@
     "Application.org.mainLogic.Main.executor": "Run",
     "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "websocket-creation",
+    "git-widget-placeholder": "call-02.04.25",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/vitalii/IdeaProjects/Vitalii Yakovenko15.11",
     "node.js.detected.package.eslint": "true",
@@ -92,6 +100,9 @@
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.mainLogic.service" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/front" />
     </key>
   </component>
   <component name="RunManager" selected="Application.org.mainLogic.Main">
@@ -182,8 +193,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.419" />
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.419" />
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.387" />
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.387" />
       </set>
     </attachedChunks>
   </component>
@@ -256,6 +267,9 @@
       <workItem from="1743495104589" duration="2869000" />
       <workItem from="1743599774637" duration="58000" />
       <workItem from="1743606313518" duration="139000" />
+      <workItem from="1743623503302" duration="3487000" />
+      <workItem from="1744300079942" duration="1026000" />
+      <workItem from="1744301154893" duration="13317000" />
     </task>
     <task id="LOCAL-00001" summary="Project initialization">
       <option name="closed" value="true" />
@@ -377,7 +391,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743606367634</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="User moving 02.04.25">
+      <option name="closed" value="true" />
+      <created>1743618143797</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1743618143797</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -409,7 +431,8 @@
     <MESSAGE value="Optimization 19.03.25" />
     <MESSAGE value="CanvasStart 19.03.25" />
     <MESSAGE value="Changes sync 02.04.25" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes sync 02.04.25" />
+    <MESSAGE value="User moving 02.04.25" />
+    <option name="LAST_COMMIT_MESSAGE" value="User moving 02.04.25" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -421,6 +444,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.IllegalStateException" package="java.lang" />
           <option name="timeStamp" value="19" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ClassCastException" package="java.lang" />
+          <option name="timeStamp" value="20" />
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/mainLogic/service/executor/UserMoveExecutor.java</url>
@@ -434,6 +461,11 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="new String(buff)" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

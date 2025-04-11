@@ -2,8 +2,10 @@ package org.util;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.Arrays;
 
 public class CustomOutputStream extends OutputStream {
 
@@ -19,6 +21,11 @@ public class CustomOutputStream extends OutputStream {
     public CustomOutputStream(byte[] initialData){
         this.data = initialData;
         this.position = 0;
+    }
+
+    public void reset() {
+        this.position = 0;
+        Arrays.fill(data , (byte) 0);
     }
 
     public void writeByte(byte value) {

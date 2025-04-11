@@ -1,9 +1,0 @@
-<changelist name="Uncommitted_changes_before_Update_at_30_03_2025,_13_08_[Changes]1" date="1743332912086" recycled="true" deleted="true">
-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_03_2025,_13_08_[Changes]1/shelved.patch" />
-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 30.03.2025, 13:08 [Changes]" />
-  <binary>
-    <option name="BEFORE_PATH" value="target/classes/org/mainLogic/dto/AgentDTO.class" />
-    <option name="AFTER_PATH" value="target/classes/org/mainLogic/dto/AgentDTO.class" />
-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_03_2025,_13_08_[Changes]1/AgentDTO.class" />
-  </binary>
-</changelist>

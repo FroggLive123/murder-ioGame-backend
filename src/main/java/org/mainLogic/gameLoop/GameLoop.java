@@ -7,13 +7,10 @@ import org.mainLogic.service.CommandQueue;
 import org.mainLogic.service.executor.Executor;
 import org.mainLogic.service.Publisher;
 import org.mainLogic.service.serializer.BotMoveCommandSerializer;
-import org.springframework.cache.interceptor.CacheAspectSupport;
 import org.util.CustomOutputStream;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
+import java.io.OutputStream;
 import java.util.*;
 
 public class GameLoop implements Runnable {
@@ -48,7 +45,7 @@ public class GameLoop implements Runnable {
     public void run() {
         int delta = 0;
 
-        byte[] buffer = new byte[4000];
+        byte[] buffer = new byte[1000];
 
         while (true) {
             delta++;
@@ -66,18 +63,13 @@ public class GameLoop implements Runnable {
                 process(commandQueue.next());
             }
 
-            if(delta == 900) {
-                Arrays.fill(buffer, (byte) 0);
-            }
-
             if(delta == 10_000) {
             }
 
             if(delta == 1_000) {
 
                 try {
-                    createAgentStatusMessage(buffer);
-                    publisher.broadcast(buffer);
+                    sendAgentStatus(buffer);
                 } catch (IOException e) {
 //                throw new RuntimeException(e);
                 }
@@ -90,27 +82,49 @@ public class GameLoop implements Runnable {
         commandQueue.put(command);
     }
 
-    private void createAgentStatusMessage(byte[] buff) throws IOException {
+    private void sendAgentStatus(byte[] buff) throws IOException {
         CustomOutputStream writer = new CustomOutputStream(buff);
 
-        final Collection<AgentEntity> agents = agentService.getAll();
+        final List<AgentEntity> agentList = List.copyOf(agentService.getAll());
 
-        writer.writeByte((byte) '{');
-        writer.write("\"datatype\":\"state\",\"data\":\"");
+        //Todo need to be checked
+        //Splits all agents into smaller arrays of 10 and sends their status until it sends an updated status of all agents
+        final int messageId = (int) System.currentTimeMillis() % 100_000;
 
-        for(AgentEntity agent: agents){
-            writer.write(String.valueOf(agent.getId()));
-            writer.write(":");
-            writer.write(String.valueOf(agent.isAlive()));
-            writer.write(":");
-            writer.write(String.valueOf(agent.getX()));
-            writer.write(",");
-            writer.write(String.valueOf(agent.getY()));
-            writer.write(";");
+        int currentAgent = 0;
+        final int lastIndex = agentList.size() - 1;
+
+        while (currentAgent < lastIndex) {
+            writer.writeByte((byte) '{');
+            writer.write("\"id\":" + messageId + ",\"datatype\":\"state\",\"data\":\"");
+
+            for(int i = 0; i < 10; i++) {
+                if(currentAgent > lastIndex) {
+                    break;
+                }
+
+                AgentEntity agent = agentList.get(currentAgent);
+
+                writer.write(String.valueOf(agent.getId()));
+                writer.write(":");
+                writer.write(String.valueOf(agent.isAlive()));
+                writer.write(":");
+                writer.write(String.valueOf(agent.getX()));
+                writer.write(",");
+                writer.write(String.valueOf(agent.getY()));
+                writer.write(";");
+
+                currentAgent += 1;
+            }
+
+            writer.writeByte((byte) '"');
+            writer.writeByte((byte) '}');
+
+            publisher.broadcast(buff);
+
+            writer.reset();
         }
 
-        writer.writeByte((byte) '"');
-        writer.writeByte((byte) '}');
     }
 
     private void process(byte[] next) {

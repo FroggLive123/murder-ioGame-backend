@@ -24,6 +24,31 @@
     <canvas id="lala"></canvas>
 
     <script type="text/javascript">
+        window.buffer = {
+            current: "",
+            real: "",
+            n: 0,
+            next: function () {
+                this.current = this.real;
+                this.real = "";
+                this.n = 0;
+            }
+        }
+
+        const wsWorker = new SharedWorker("wsSharedWorker.js");
+        wsWorker.port.start();
+        wsWorker.port.addEventListener("message", function (e) {
+            let message = JSON.parse(e.data);
+            if(message.datatype === "init") {
+                user.agent = message.id;
+                return
+            }
+            if(message.datatype === "state") {
+                buffer.n = 1;
+                buffer.real = message.data;
+            }
+        })
+
         let testMessage = "0:true:0,0;1:true:0,12000;2:true:6000,0;3:true:6000,12000;";
         let init = false;
         const user = {
@@ -32,14 +57,6 @@
 
         let wsocket;
 
-        window.buffer = {
-            current: "",
-            real: "",
-            next: function () {
-                this.current = this.real;
-                this.real = "";
-            }
-        }
 
         // test code
         // buffer.real = testMessage;
@@ -52,54 +69,33 @@
             window.agents.push({x:0, y:0})
         }
 
-        function connect() {
-
-
-            wsocket = new WebSocket("ws://localhost:8000");
-            wsocket.onopen = onopen;
-            wsocket.onmessage = onmessage;
-            wsocket.onclose = onclose;
-
-        }
-
-        function onopen() {
-            console.log("Connected!");
-        }
-
-        function onmessage(event) {
-            try{
-                let x = event.data;
-                const i = x.lastIndexOf("}") + 1;
-                x = x.substring(0, i);
-
-                const msg = JSON.parse(x);
-                if (msg.datatype === "state") {
-                    buffer.real = msg.data;
-                    return
-                }
-                if (msg.datatype === "init") {
-                    user.agent = Number(msg.id);
-                    return
-                }
-
-                console.warn("unsupported datatype", msg.datatype)
-            } catch (e) {
-                console.error(e);
-                console.log(event.data);
-            }
-        }
-
-        function onclose(e) {
-            console.log("Connection closed.");
-        }
-
-        window.addEventListener("load", connect, false);
-
         function move(direction) {
             wsocket.send(JSON.stringify({
                 datatype: "move",
                 direction: direction
             }))
+        }
+
+        function move(direction) {
+            let x = window.agents[0].x;
+            let y = window.agents[0].y;
+            const step = 2;
+            switch (direction) {
+                case 1:
+                    y -= step;
+                    break
+                case 3:
+                    x += step;
+                    break
+                case 5:
+                    y +=step;
+                    break
+                case 7:
+                    x -= step;
+                    break
+            }
+
+            // buffer.real = `0:true:${x},${y}`;
         }
 
         window.addEventListener("keydown", function (event) {
@@ -140,6 +136,10 @@
         frame();
 
         function draw() {
+            if(buffer.n == 0) {
+                return;
+            }
+
             ctx.clearRect(0 ,0 ,canvas.width ,canvas.height);
             ctx.beginPath();
 
@@ -151,14 +151,13 @@
             const message =  buffer.current;
 
             if(message == "") {
-                console.log("empty")
-
                 return;
             }
+            // console.log(message);
 
             for(const line of message.split(";")) {
                 if(line.indexOf(":") === -1) {
-                    console.log("Continue")
+                    // console.log("Continue")
                     continue
                 }
                 const arr = line.split(":");
@@ -166,9 +165,13 @@
                 const alive = Boolean(arr[1]);
                 const coordinates = (arr[2].split(","));
                 const agent = window.agents[id];
+                //
+                // agent.x = Number(((coordinates[0]) ) + playingField.x);
+                // agent.y = Number(((coordinates[1]) ) + playingField.y);
+                agent.x = Number(coordinates[0]);
+                agent.y = Number(coordinates[1]);
 
-                agent.x = Number(((coordinates[0]) / (canvas.width * 0.02077)) + playingField.x);
-                agent.y = Number(((coordinates[1]) / (canvas.height * 0.069)) + playingField.y);
+                // console.log(agent);
 
                 ctx.fillStyle = "#000000";
                 if(id == user.agent) {

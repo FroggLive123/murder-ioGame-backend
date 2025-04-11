@@ -217,12 +217,17 @@ public class Server implements Runnable {
                 short userId = socketManager.getId(client);
                 User user = socketManager.getUser(userId);
 
+                //checking how much time have past since last measure
                 if(user.getTimeOfMeasuring() - System.currentTimeMillis() > 1_000) {
                     user.updateTimeOfMeasuring();
                     user.resetCounter();
                 }
-                if(user.getRPC() < 11) {
-                    onMessage(message, userId);
+                if(user.getRPS() < 11) {
+                    user.increaseCounter();
+                    try {
+                        onMessage(message, userId);
+                    }catch (Exception e) {
+                    }
                 }
 
                 for(int k = 0; k < b.length ; k++) {
@@ -355,6 +360,7 @@ public class Server implements Runnable {
                 }
             }
         } catch (IOException e) {
+            System.out.println(new String(message));
             throw new RuntimeException(e);
         }
 
