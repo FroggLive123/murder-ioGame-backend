@@ -31,6 +31,7 @@ function onopen() {
 }
 
 function onmessageWS(event) {
+    console.log(event.data);
     try{
         let x = event.data;
 

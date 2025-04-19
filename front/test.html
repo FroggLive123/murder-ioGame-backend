@@ -75,28 +75,8 @@
                 direction: direction
             }))
         }
-
-        function move(direction) {
-            let x = window.agents[0].x;
-            let y = window.agents[0].y;
-            const step = 2;
-            switch (direction) {
-                case 1:
-                    y -= step;
-                    break
-                case 3:
-                    x += step;
-                    break
-                case 5:
-                    y +=step;
-                    break
-                case 7:
-                    x -= step;
-                    break
-            }
-
             // buffer.real = `0:true:${x},${y}`;
-        }
+
 
         window.addEventListener("keydown", function (event) {
             switch (event.key) {
@@ -136,6 +116,10 @@
         frame();
 
         function draw() {
+            if(user.agent == null) {
+                return;
+            }
+
             if(buffer.n == 0) {
                 return;
             }
@@ -143,15 +127,16 @@
             ctx.clearRect(0 ,0 ,canvas.width ,canvas.height);
             ctx.beginPath();
 
-            //creates rectangle (boarders) for agents
-            ctx.strokeStyle = "orange";
-            ctx.strokeRect(playingField.x + 1, playingField.y + 1, playingField.width, playingField.height);
-
             buffer.next();
             const message =  buffer.current;
 
             if(message == "") {
                 return;
+            }
+
+            const globalOffset =  {
+                x: -window.agents[user.agent].x + window.innerWidth * 0.5,
+                y: -window.agents[user.agent].y + window.innerHeight * 0.5
             }
             // console.log(message);
 
@@ -168,11 +153,11 @@
                 //
                 // agent.x = Number(((coordinates[0]) ) + playingField.x);
                 // agent.y = Number(((coordinates[1]) ) + playingField.y);
-                agent.x = Number(coordinates[0]);
-                agent.y = Number(coordinates[1]);
+                agent.x = Number(coordinates[0]) + globalOffset.x;
+                agent.y = Number(coordinates[1]) + globalOffset.y;
 
                 // console.log(agent);
-
+                console.log(window.agents[user.agent].x," ",window.agents[user.agent].y);
                 ctx.fillStyle = "#000000";
                 if(id == user.agent) {
                     ctx.fillStyle = "#fd0101";
@@ -186,6 +171,10 @@
         //Todo make coordinates float + make agents slower
         //Todo make status message have only 10 agents
         //Todo *make kill command (use last move direction)
+
+        //Todo move
+        //Todo kill
+        //Todo main character have to be in the center without jumps
     </script>
 </body>
 </html>
