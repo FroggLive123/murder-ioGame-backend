@@ -170,13 +170,17 @@ public class Server implements Runnable {
                 System.out.println("READ CLIENT: " + ci);
                 var client = clients.get(ci);
                 if (client.isClosed()) {
+                    System.out.println("connection closed");
                     clients.remove(client);
+                    continue;
                 }
                 var input = client.getInputStream();
                 System.out.printf("CLIENT %d READ\n", ci);
                 synchronized (input) {
                     len = input.read(b);
                 }
+
+                //Todo resolve problem with input read on top ( input.read is blocking whole process )
                 if (len == -1) {
                     continue;
                 }

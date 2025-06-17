@@ -35,6 +35,14 @@
             }
         }
 
+        let testMessage = "0:true:0,0;1:true:0,12000;2:true:6000,0;3:true:6000,12000;";
+        let init = false;
+        const user = {
+            agent: null
+        };
+
+        let wsocket;
+
         const wsWorker = new SharedWorker("wsSharedWorker.js");
         wsWorker.port.start();
         wsWorker.port.addEventListener("message", function (e) {
@@ -48,15 +56,7 @@
                 buffer.real = message.data;
             }
         })
-
-        let testMessage = "0:true:0,0;1:true:0,12000;2:true:6000,0;3:true:6000,12000;";
-        let init = false;
-        const user = {
-            agent: null
-        };
-
-        let wsocket;
-
+        //Todo make buffer work
 
         // test code
         // buffer.real = testMessage;
@@ -129,20 +129,25 @@
 
             buffer.next();
             const message =  buffer.current;
+            // console.log(message);
 
             if(message == "") {
                 return;
             }
 
+            window.agents[user.agent].x = 1;
+            window.agents[user.agent].y = 1;
             const globalOffset =  {
-                x: -window.agents[user.agent].x + window.innerWidth * 0.5,
-                y: -window.agents[user.agent].y + window.innerHeight * 0.5
+                // x: -window.agents[user.agent].x + window.innerWidth * 0.5,
+                // y: -window.agents[user.agent].y + window.innerHeight * 0.5
+                x: (-1 * window.agents[user.agent].x) + (canvas.innerWidth * 0.5),
+                y: (-1 * window.agents[user.agent].y) + (canvas.innerHeight * 0.5)
             }
-            // console.log(message);
+            // console.log(globalOffset.x, " ", globalOffset.y);
+            // console.log(window.innerWidth * 0.5, " ", window.innerHeight * 0.5," id:", user.agent);
 
             for(const line of message.split(";")) {
                 if(line.indexOf(":") === -1) {
-                    // console.log("Continue")
                     continue
                 }
                 const arr = line.split(":");
@@ -150,14 +155,12 @@
                 const alive = Boolean(arr[1]);
                 const coordinates = (arr[2].split(","));
                 const agent = window.agents[id];
-                //
+
                 // agent.x = Number(((coordinates[0]) ) + playingField.x);
                 // agent.y = Number(((coordinates[1]) ) + playingField.y);
-                agent.x = Number(coordinates[0]) + globalOffset.x;
-                agent.y = Number(coordinates[1]) + globalOffset.y;
+                agent.x = Number(coordinates[0]);
+                agent.y = Number(coordinates[1]);
 
-                // console.log(agent);
-                console.log(window.agents[user.agent].x," ",window.agents[user.agent].y);
                 ctx.fillStyle = "#000000";
                 if(id == user.agent) {
                     ctx.fillStyle = "#fd0101";
@@ -167,11 +170,6 @@
                 ctx.fill();
             }
         }
-        //Todo make agents move in the specific aria of the canvas
-        //Todo make coordinates float + make agents slower
-        //Todo make status message have only 10 agents
-        //Todo *make kill command (use last move direction)
-
         //Todo move
         //Todo kill
         //Todo main character have to be in the center without jumps

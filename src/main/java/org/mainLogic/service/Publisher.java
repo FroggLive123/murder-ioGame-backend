@@ -16,20 +16,20 @@ public class Publisher {
 
     public void send(short id, byte[] message) throws IOException {
 
-        Optional<Socket> socket = socketManager.get(id);
+        Optional<Socket> socket1 = socketManager.get(id);
 
-        if(socket.isEmpty()){
+        if (socket1.isEmpty()) {
             throw new RuntimeException("Socket not found");
         }
 
-        if(socket.get().isClosed()){
+        if (socket1.get().isClosed()) {
             throw new RuntimeException("Socket is closed");
         }
-
-        final OutputStream outputStream = socket.get().getOutputStream();
+        final OutputStream outputStream = socket1.get().getOutputStream();
 
         outputStream.write(encode(message));
         outputStream.flush();
+
     }
 
     public void broadcast(byte[] message) throws IOException {

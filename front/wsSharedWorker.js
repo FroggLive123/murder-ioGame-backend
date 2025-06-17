@@ -58,7 +58,6 @@ function onmessageWS(event) {
                 buffer.message = "";
             }
             buffer.message += msg.data;
-
             return
         }
         if (msg.datatype === "init") {
@@ -71,7 +70,7 @@ function onmessageWS(event) {
         console.warn("unsupported datatype", msg.datatype)
     } catch (e) {
         console.error(e);
-        console.log(event.data);
+        // console.log(event.data);
     }
 }
 
