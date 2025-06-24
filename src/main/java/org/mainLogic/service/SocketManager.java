@@ -1,13 +1,13 @@
 package org.mainLogic.service;
 
-import org.mainLogic.entity.AgentEntity;
+import org.mainLogic.entity.ClientSession;
 import org.mainLogic.entity.User;
 
 import java.net.Socket;
 import java.util.*;
 
 public class SocketManager {
-    private final Map<Short, Socket> idSocket = new HashMap<>();
+    private final Map<Short, ClientSession> idSocket = new HashMap<>();
     //temporal adding of users into SocketManager, need to find better place for them
     private final List<User> userList = new ArrayList<>();
     private final short playersAmount;
@@ -17,8 +17,8 @@ public class SocketManager {
         this.playersAmount = playersAmount;
     }
 
-    public short add(final Socket socket) {
-        if(idSocket.containsValue(socket)) {
+    public short add(final ClientSession clientSession) {
+        if(idSocket.containsValue(clientSession)) {
             throw new IllegalArgumentException("Socket already exists");
         }
         if(idSocket.size() == playersAmount) {
@@ -34,7 +34,7 @@ public class SocketManager {
 
         final short id = nextid;
         nextid++;
-        idSocket.put(id, socket);
+        idSocket.put(id, clientSession);
 
         //User added
         User user = new User();
@@ -50,7 +50,7 @@ public class SocketManager {
         userList.remove(id);
     }
 
-    public Optional<Socket> get(final short id) {
+    public Optional<ClientSession> get(final short id) {
         return Optional.ofNullable(idSocket.get(id));
     }
 

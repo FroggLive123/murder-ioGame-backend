@@ -3,6 +3,7 @@ package org.mainLogic.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.xml.bind.DatatypeConverter;
 import org.mainLogic.entity.AgentEntity;
+import org.mainLogic.entity.ClientSession;
 import org.mainLogic.entity.User;
 import org.mainLogic.service.message.ErrorMessage;
 import org.mainLogic.service.message.InitMessage;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Executable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -89,7 +91,9 @@ public class Server implements Runnable {
                 try {
                     Socket socket;
                     try {
-                        socket = server.accept(); //waits until a client connects
+                        socket = server.accept();
+                        //Fix is adding 94 good idea to solve socket read problem?
+                        socket.setSoTimeout(100); //waits until a client connects
                     } catch (IOException waitException) {
                         throw new IllegalStateException("Could not wait for client connection", waitException);
                     }
@@ -121,9 +125,10 @@ public class Server implements Runnable {
                     }
 
 
-                    //TODO Server need to get information about userid to init user
+                    //Todo Server need to get information about userid to init user
                     //checking for exception with no any agents left
-                    short userid = socketManager.add(socket);
+                    ClientSession clientSession = new ClientSession(socket);
+                    short userid = socketManager.add(clientSession);
                     try{
 
                         AgentEntity userAgent = agentService.randomAgent(userid);
@@ -177,7 +182,9 @@ public class Server implements Runnable {
                 var input = client.getInputStream();
                 System.out.printf("CLIENT %d READ\n", ci);
                 synchronized (input) {
-                    len = input.read(b);
+                    try{
+                        len = input.read(b);
+                    }catch ()
                 }
 
                 //Todo resolve problem with input read on top ( input.read is blocking whole process )

@@ -1,6 +1,7 @@
 package org.mainLogic.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.mainLogic.entity.ClientSession;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -16,7 +17,8 @@ public class Publisher {
 
     public void send(short id, byte[] message) throws IOException {
 
-        Optional<Socket> socket1 = socketManager.get(id);
+        Optional<ClientSession> clientSession = socketManager.get(id);
+        Optional<Socket> socket1 = Optional.ofNullable(clientSession.get().getSocket());
 
         if (socket1.isEmpty()) {
             throw new RuntimeException("Socket not found");

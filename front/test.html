@@ -36,6 +36,7 @@
         }
 
         let testMessage = "0:true:0,0;1:true:0,12000;2:true:6000,0;3:true:6000,12000;";
+        let timeOFSync = Date.now();
         let init = false;
         const user = {
             agent: null
@@ -110,6 +111,8 @@
         const ctx = canvas.getContext("2d");
 
         function frame() {
+            //heartbeat resync user and server with TTL system
+            heartbeat();
             draw();
             requestAnimationFrame(frame);
         }
@@ -168,6 +171,15 @@
 
                 ctx.fillRect(agent.x, agent.y, 5, 5);
                 ctx.fill();
+            }
+        }
+
+        function heartbeat() {
+            if(timeOFSync <= 2000) {
+                wsocket.send(JSON.stringify({
+                    datatype: "s"
+                }));
+                console.log("sync message has been sent");
             }
         }
         //Todo move
