@@ -46,7 +46,6 @@ public class SocketManager {
 
     public void remove(final short id) {
         idSocket.remove(id);
-        //User deleted
         userList.remove(id);
     }
 
@@ -57,9 +56,9 @@ public class SocketManager {
     public User getUser(final short id) {
         return userList.get(id);
     }
-
-    public short getId(final Socket socket) {
-        return idSocket.entrySet().stream().filter(e -> e.getValue().equals(socket)).findFirst().get().getKey();
+    //Fix socketmanager it  has problem with ClientSession adaptation so Server breaks.
+    public short getId(final ClientSession clientSession) {
+        return idSocket.entrySet().stream().filter(e -> e.getValue().equals(clientSession)).findFirst().get().getKey();
     }
 
     public Iterator<Short> getIdIterator() {

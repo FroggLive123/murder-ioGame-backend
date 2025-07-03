@@ -16,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Executable;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -28,7 +29,7 @@ public class Server implements Runnable {
 
     private static MessageDigest SHA1;
     //delete and throw that logic into SocketManager
-    private static final List<Socket> clients = new ArrayList<>();
+    private static final List<ClientSession> clients = new ArrayList<>();
     private static AgentService agentService;
     private final SocketManager socketManager;
     private final Publisher publisher;
@@ -57,7 +58,6 @@ public class Server implements Runnable {
 
     @Override
     public void run() {
-
         try {
             SHA1 = MessageDigest.getInstance("SHA-1");
         } catch (NoSuchAlgorithmException e) {
@@ -75,13 +75,14 @@ public class Server implements Runnable {
 
         listenServerSocket(server);
 
-        try {
-            System.out.println("print input stream");
-            printInputStream();
-        } catch (IOException printException) {
-            throw new IllegalStateException("Could not connect to client input stream", printException);
+        while(true) {
+            try {
+                System.out.println("print input stream");
+                printInputStream();
+            } catch (IOException printException) {
+                throw new IllegalStateException("Could not connect to client input stream", printException);
+            }
         }
-
     }
 
 
@@ -93,7 +94,7 @@ public class Server implements Runnable {
                     try {
                         socket = server.accept();
                         //Fix is adding 94 good idea to solve socket read problem?
-                        socket.setSoTimeout(100); //waits until a client connects
+                        socket.setSoTimeout(15); //waits until a client connects
                     } catch (IOException waitException) {
                         throw new IllegalStateException("Could not wait for client connection", waitException);
                     }
@@ -138,7 +139,7 @@ public class Server implements Runnable {
                         publisher.send(userid ,objectMapper.writeValueAsBytes(initCommand));
 
                         //Ask if delete of Map with Hash + socket from agentService needed
-                        clients.add(socket);
+                        clients.add(clientSession);
 
                     } catch (Exception e) {
                         ErrorMessage errorMessage = new ErrorMessage("err", "ServerIsFull");
@@ -174,17 +175,20 @@ public class Server implements Runnable {
             for (int ci = 0; ci < clients.size(); ci++) {
                 System.out.println("READ CLIENT: " + ci);
                 var client = clients.get(ci);
-                if (client.isClosed()) {
+                if (client.getSocket().isClosed() || !client.isActive()) {
                     System.out.println("connection closed");
                     clients.remove(client);
                     continue;
                 }
-                var input = client.getInputStream();
+                var input = client.getSocket().getInputStream();
                 System.out.printf("CLIENT %d READ\n", ci);
                 synchronized (input) {
                     try{
                         len = input.read(b);
-                    }catch ()
+                        client.resync();
+                    }catch (SocketTimeoutException e) {
+                        continue;
+                    }
                 }
 
                 //Todo resolve problem with input read on top ( input.read is blocking whole process )
